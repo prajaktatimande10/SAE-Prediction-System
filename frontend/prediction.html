@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>SAE Prediction | SAE Predict</title>
+
+<link rel="stylesheet"
+      href="css/style.css">
+```
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+```
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            🧠
+        </div>
+
+        <div>
+
+            <h2>SAE Predict</h2>
+
+            <span>
+                Clinical Intelligence
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <a href="dashboard.html">
+            <span>▦</span>
+            Dashboard
+        </a>
+
+        <a href="patients.html">
+            <span>👥</span>
+            Patients
+        </a>
+
+        <a href="prediction.html"
+           class="active">
+            <span>⚕</span>
+            Prediction
+        </a>
+
+        <a href="analytics.html">
+            <span>📊</span>
+            Analytics
+        </a>
+
+        <a href="reports.html">
+            <span>📋</span>
+            Reports
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <a href="analytics.html">
+            ⚙ Settings
+        </a>
+
+        <a href="index.html">
+            ↪ Logout
+        </a>
+
+    </div>
+
+</aside>
+
+
+
+<!-- ================= MAIN CONTENT ================= -->
+
+<main class="main-content">
+
+
+    <!-- HEADER -->
+
+    <header class="topbar">
+
+        <div>
+
+            <h1>
+                SAE Risk Prediction
+            </h1>
+
+            <p>
+                Clinical assessment and
+                Sepsis-Associated Encephalopathy
+                risk analysis
+            </p>
+
+        </div>
+
+
+        <div class="doctor-profile">
+
+            <div class="notification">
+                🔔
+            </div>
+
+            <div class="avatar">
+                DR
+            </div>
+
+            <div>
+
+                <strong>
+                    Dr. Rahul Sharma
+                </strong>
+
+                <small>
+                    Critical Care Specialist
+                </small>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= INFO BANNER ================= -->
+
+    <section class="prediction-info">
+
+        <div class="prediction-info-icon">
+            🧠
+        </div>
+
+        <div>
+
+            <h3>
+                AI-Assisted Clinical Assessment
+            </h3>
+
+            <p>
+                Enter the patient's current clinical
+                parameters below to generate an
+                SAE risk assessment.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= PATIENT INFORMATION ================= -->
+
+    <section class="panel">
+
+        <div class="panel-header">
+
+            <div>
+
+                <h3>
+                    Patient Information
+                </h3>
+
+                <p>
+                    Select an existing patient
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="prediction-form-grid">
+
+
+            <!-- PATIENT -->
+
+            <div class="form-field">
+
+                <label>
+                    Patient ID
+                </label>
+
+                <select id="patientId">
+
+                    <option value="">
+                        Select Patient
+                    </option>
+
+                    <option value="PT-1024">
+                        PT-1024 - Ramesh Kumar
+                    </option>
+
+                    <option value="PT-1023">
+                        PT-1023 - Sunita Patil
+                    </option>
+
+                    <option value="PT-1022">
+                        PT-1022 - Arun Deshmukh
+                    </option>
+
+                    <option value="PT-1021">
+                        PT-1021 - Meena Joshi
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- AGE -->
+
+            <div class="form-field">
+
+                <label>
+                    Age
+                </label>
+
+                <input
+                    type="number"
+                    id="age"
+                    min="0"
+                    placeholder="Patient age"
+                >
+
+            </div>
+
+
+            <!-- GENDER -->
+
+            <div class="form-field">
+
+                <label>
+                    Gender
+                </label>
+
+                <select id="gender">
+
+                    <option value="">
+                        Select Gender
+                    </option>
+
+                    <option value="Male">
+                        Male
+                    </option>
+
+                    <option value="Female">
+                        Female
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- SEPSIS -->
+
+            <div class="form-field">
+
+                <label>
+                    Sepsis Status
+                </label>
+
+                <select id="sepsisStatus">
+
+                    <option value="Active">
+                        Active
+                    </option>
+
+                    <option value="Resolved">
+                        Resolved
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= CLINICAL PARAMETERS ================= -->
+
+    <section class="panel">
+
+        <div class="panel-header">
+
+            <div>
+
+                <h3>
+                    Clinical Parameters
+                </h3>
+
+                <p>
+                    Enter current patient measurements
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="prediction-form-grid">
+
+
+            <!-- GCS -->
+
+            <div class="form-field">
+
+                <label>
+                    Glasgow Coma Scale (GCS)
+                </label>
+
+                <input
+                    type="number"
+                    id="gcs"
+                    min="3"
+                    max="15"
+                    placeholder="3 - 15"
+                >
+
+                <small class="field-help">
+                    Normal range: 13–15
+                </small>
+
+            </div>
+
+
+            <!-- HEART RATE -->
+
+            <div class="form-field">
+
+                <label>
+                    Heart Rate (bpm)
+                </label>
+
+                <input
+                    type="number"
+                    id="heartRate"
+                    placeholder="e.g. 88"
+                >
+
+            </div>
+
+
+            <!-- BLOOD PRESSURE -->
+
+            <div class="form-field">
+
+                <label>
+                    Systolic Blood Pressure
+                    (mmHg)
+                </label>
+
+                <input
+                    type="number"
+                    id="bloodPressure"
+                    placeholder="e.g. 120"
+                >
+
+            </div>
+
+
+            <!-- RESPIRATORY RATE -->
+
+            <div class="form-field">
+
+                <label>
+                    Respiratory Rate
+                    (breaths/min)
+                </label>
+
+                <input
+                    type="number"
+                    id="respiratoryRate"
+                    placeholder="e.g. 18"
+                >
+
+            </div>
+
+
+            <!-- OXYGEN -->
+
+            <div class="form-field">
+
+                <label>
+                    Oxygen Saturation (SpO₂)
+                </label>
+
+                <input
+                    type="number"
+                    id="oxygen"
+                    min="0"
+                    max="100"
+                    placeholder="e.g. 96"
+                >
+
+                <small class="field-help">
+                    Percentage (%)
+                </small>
+
+            </div>
+
+
+            <!-- TEMPERATURE -->
+
+            <div class="form-field">
+
+                <label>
+                    Temperature (°C)
+                </label>
+
+                <input
+                    type="number"
+                    id="temperature"
+                    step="0.1"
+                    placeholder="e.g. 37.2"
+                >
+
+            </div>
+
+
+            <!-- WBC -->
+
+            <div class="form-field">
+
+                <label>
+                    White Blood Cell Count
+                </label>
+
+                <input
+                    type="number"
+                    id="wbc"
+                    step="0.1"
+                    placeholder="×10⁹/L"
+                >
+
+            </div>
+
+
+            <!-- LACTATE -->
+
+            <div class="form-field">
+
+                <label>
+                    Lactate (mmol/L)
+                </label>
+
+                <input
+                    type="number"
+                    id="lactate"
+                    step="0.1"
+                    placeholder="e.g. 2.1"
+                >
+
+            </div>
+
+
+            <!-- CREATININE -->
+
+            <div class="form-field">
+
+                <label>
+                    Creatinine (mg/dL)
+                </label>
+
+                <input
+                    type="number"
+                    id="creatinine"
+                    step="0.1"
+                    placeholder="e.g. 1.2"
+                >
+
+            </div>
+
+
+            <!-- BILIRUBIN -->
+
+            <div class="form-field">
+
+                <label>
+                    Bilirubin (mg/dL)
+                </label>
+
+                <input
+                    type="number"
+                    id="bilirubin"
+                    step="0.1"
+                    placeholder="e.g. 0.8"
+                >
+
+            </div>
+
+
+            <!-- PLATELETS -->
+
+            <div class="form-field">
+
+                <label>
+                    Platelet Count
+                </label>
+
+                <input
+                    type="number"
+                    id="platelets"
+                    placeholder="×10⁹/L"
+                >
+
+            </div>
+
+
+            <!-- CONSCIOUSNESS -->
+
+            <div class="form-field">
+
+                <label>
+                    Sedation / Altered Consciousness
+                </label>
+
+                <select id="consciousness">
+
+                    <option value="No">
+                        No
+                    </option>
+
+                    <option value="Yes">
+                        Yes
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= BUTTON ================= -->
+
+    <div class="prediction-actions">
+
+        <button
+            type="button"
+            class="reset-btn"
+            onclick="resetPredictionForm()">
+
+            Reset
+
+        </button>
+
+
+        <button
+            type="button"
+            class="predict-btn"
+            id="predictButton"
+            onclick="generatePrediction()">
+
+            🧠 Generate SAE Prediction
+
+        </button>
+
+    </div>
+
+
+
+    <!-- ================= LOADING ================= -->
+
+    <div
+        id="predictionLoading"
+        style="display:none;">
+
+        <p>
+            ⏳ Running SAE prediction...
+        </p>
+
+    </div>
+
+
+
+    <!-- ================= ERROR ================= -->
+
+    <div
+        id="predictionError"
+        style="display:none;">
+
+    </div>
+
+
+
+    <!-- ================= RESULT ================= -->
+
+    <section
+        id="predictionResult"
+        class="prediction-result"
+        style="display:none;">
+
+
+        <div class="result-header">
+
+            <div>
+
+                <span class="result-label">
+                    MODEL PREDICTION RESULT
+                </span>
+
+                <h2>
+                    SAE Risk Assessment
+                </h2>
+
+            </div>
+
+            <div class="result-icon">
+                🧠
+            </div>
+
+        </div>
+
+
+
+        <div class="risk-result-grid">
+
+
+            <!-- SCORE -->
+
+            <div class="risk-score">
+
+                <span>
+                    Risk Score
+                </span>
+
+                <strong id="riskPercentage">
+                    --
+                </strong>
+
+                <small>
+                    Application model score
+                </small>
+
+            </div>
+
+
+            <!-- LEVEL -->
+
+            <div class="risk-level">
+
+                <span>
+                    Risk Classification
+                </span>
+
+                <strong id="riskLevel">
+                    --
+                </strong>
+
+                <small>
+                    Based on submitted parameters
+                </small>
+
+            </div>
+
+
+            <!-- MODEL -->
+
+            <div class="risk-confidence">
+
+                <span>
+                    Model
+                </span>
+
+                <strong id="modelName">
+                    --
+                </strong>
+
+                <small>
+                    Prediction service
+                </small>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="clinical-alert">
+
+            <strong>
+                ⚠ Clinical Attention
+            </strong>
+
+            <p>
+                This result is an application-level
+                model output for development and
+                demonstration. It is not a clinically
+                validated diagnosis and should not
+                replace assessment by qualified
+                healthcare professionals.
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+```
+
+</div>
+<script>
+
+const API_URL = "http://127.0.0.1:5000";
+
+
+async function generatePrediction() {
+
+    const patientId = document.getElementById("patientId").value;
+    const age = document.getElementById("age").value;
+    const gender = document.getElementById("gender").value;
+    const sepsisStatus = document.getElementById("sepsisStatus").value;
+
+    const gcs = document.getElementById("gcs").value;
+    const heartRate = document.getElementById("heartRate").value;
+    const bloodPressure = document.getElementById("bloodPressure").value;
+    const respiratoryRate = document.getElementById("respiratoryRate").value;
+    const oxygen = document.getElementById("oxygen").value;
+    const temperature = document.getElementById("temperature").value;
+
+    const wbc = document.getElementById("wbc").value;
+    const lactate = document.getElementById("lactate").value;
+    const creatinine = document.getElementById("creatinine").value;
+    const bilirubin = document.getElementById("bilirubin").value;
+    const platelets = document.getElementById("platelets").value;
+
+    const consciousness = document.getElementById("consciousness").value;
+
+
+    // ================= VALIDATION =================
+
+    if (!patientId) {
+        showError("Please select a patient.");
+        return;
+    }
+
+    if (!age) {
+        showError("Please enter patient age.");
+        return;
+    }
+
+    if (!gender) {
+        showError("Please select gender.");
+        return;
+    }
+
+    if (!gcs) {
+        showError("Please enter GCS.");
+        return;
+    }
+
+    if (!heartRate) {
+        showError("Please enter heart rate.");
+        return;
+    }
+
+    if (!respiratoryRate) {
+        showError("Please enter respiratory rate.");
+        return;
+    }
+
+    if (!oxygen) {
+        showError("Please enter oxygen saturation.");
+        return;
+    }
+
+    if (!temperature) {
+        showError("Please enter temperature.");
+        return;
+    }
+
+
+    // ================= REQUEST DATA =================
+
+    const patientData = {
+
+        patient_id: patientId,
+
+        age: Number(age),
+
+        gender: gender,
+
+        sepsis_status: sepsisStatus,
+
+        gcs: Number(gcs),
+
+        heart_rate: Number(heartRate),
+
+        blood_pressure: Number(bloodPressure || 0),
+
+        respiratory_rate: Number(respiratoryRate),
+
+        spo2: Number(oxygen),
+
+        temperature: Number(temperature),
+
+        wbc: Number(wbc || 0),
+
+        lactate: Number(lactate || 0),
+
+        creatinine: Number(creatinine || 0),
+
+        bilirubin: Number(bilirubin || 0),
+
+        platelets: Number(platelets || 0),
+
+        consciousness: consciousness
+    };
+
+
+    console.log("Sending patient data:", patientData);
+
+
+    // ================= UI =================
+
+    const loading =
+        document.getElementById("predictionLoading");
+
+    const errorBox =
+        document.getElementById("predictionError");
+
+    const resultBox =
+        document.getElementById("predictionResult");
+
+    const button =
+        document.getElementById("predictButton");
+
+
+    loading.style.display = "block";
+
+    errorBox.style.display = "none";
+
+    resultBox.style.display = "none";
+
+    button.disabled = true;
+
+    button.innerText = "⏳ Generating Prediction...";
+
+
+    // ================= API CALL =================
+
+    try {
+
+        console.log(
+            "Connecting to:",
+            `${API_URL}/api/predict`
+        );
+
+
+        const response = await fetch(
+            `${API_URL}/api/predict`,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(patientData)
+            }
+        );
+
+
+        console.log(
+            "HTTP status:",
+            response.status
+        );
+
+
+        const data = await response.json();
+
+
+        console.log(
+            "Backend response:",
+            data
+        );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                `Server returned HTTP ${response.status}`
+            );
+
+        }
+
+
+        if (data.status !== "success") {
+
+            throw new Error(
+                data.message ||
+                "Prediction failed."
+            );
+
+        }
+
+
+        // ================= DISPLAY RESULT =================
+
+        displayPrediction(
+            data.prediction
+        );
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "Prediction error:",
+            error
+        );
+
+
+        showError(
+            "Prediction request failed: " +
+            error.message
+        );
+
+    }
+    finally {
+
+        loading.style.display = "none";
+
+        button.disabled = false;
+
+        button.innerText =
+            "🧠 Generate SAE Prediction";
+
+    }
+
+}
+
+
+// ================= DISPLAY RESULT =================
+
+function displayPrediction(prediction) {
+
+    const resultBox =
+        document.getElementById(
+            "predictionResult"
+        );
+
+    const riskPercentage =
+        document.getElementById(
+            "riskPercentage"
+        );
+
+    const riskLevel =
+        document.getElementById(
+            "riskLevel"
+        );
+
+    const modelName =
+        document.getElementById(
+            "modelName"
+        );
+
+
+    riskPercentage.innerText =
+        prediction.risk_score + "%";
+
+
+    riskLevel.innerText =
+        prediction.risk_level;
+
+
+    modelName.innerText =
+        prediction.model;
+
+
+    resultBox.style.display =
+        "block";
+
+
+    resultBox.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+}
+
+
+// ================= ERROR =================
+
+function showError(message) {
+
+    const errorBox =
+        document.getElementById(
+            "predictionError"
+        );
+
+
+    errorBox.innerHTML = `
+        <div style="
+            padding:15px;
+            margin:15px 0;
+            border-radius:8px;
+            background:#fff1f2;
+            color:#b42318;
+            border:1px solid #fecdca;
+        ">
+            <strong>⚠ Error</strong>
+            <p>${message}</p>
+        </div>
+    `;
+
+
+    errorBox.style.display =
+        "block";
+
+
+    errorBox.scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+// ================= RESET =================
+
+function resetPredictionForm() {
+
+    document.querySelectorAll(
+        ".prediction-form-grid input"
+    ).forEach(
+        input => input.value = ""
+    );
+
+
+    document.querySelectorAll(
+        ".prediction-form-grid select"
+    ).forEach(
+        select => select.selectedIndex = 0
+    );
+
+
+    document.getElementById(
+        "predictionResult"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "predictionError"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "predictionLoading"
+    ).style.display = "none";
+
+}
+
+</script>
+
+</body>
+
+</html>

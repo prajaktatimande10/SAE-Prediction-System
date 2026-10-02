@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SAE Predict - Dashboard</title>
+
+    <link rel="stylesheet"
+          href="css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+<div class="dashboard">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                🧠
+            </div>
+
+            <div>
+                <h2>SAE Predict</h2>
+
+                <span>
+                    Clinical Intelligence
+                </span>
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <!-- Dashboard -->
+
+            <a href="dashboard.html"
+               class="active">
+
+                <span>▦</span>
+
+                Dashboard
+
+            </a>
+
+
+            <!-- Patients -->
+
+            <a href="patients.html">
+
+                <span>👥</span>
+
+                Patients
+
+            </a>
+
+
+            <!-- Prediction -->
+
+            <a href="prediction.html">
+
+                <span>⚕</span>
+
+                Prediction
+
+            </a>
+
+
+            <!-- Analytics -->
+
+            <a href="analytics.html">
+
+                <span>📊</span>
+
+                Analytics
+
+            </a>
+
+
+            <!-- Reports -->
+
+            <a href="reports.html">
+
+                <span>📋</span>
+
+                Reports
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="#">
+                ⚙ Settings
+            </a>
+
+            <a href="index.html">
+                ↪ Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>
+                    Clinical Dashboard
+                </h1>
+
+                <p>
+                    Sepsis-Associated Encephalopathy
+                    Prediction System
+                </p>
+
+            </div>
+
+
+            <div class="doctor-profile">
+
+                <div class="notification">
+                    🔔
+                </div>
+
+
+                <div class="avatar">
+                    DR
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        Dr. Rahul Sharma
+                    </strong>
+
+                    <small>
+                        Critical Care Specialist
+                    </small>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================= WELCOME ================= -->
+
+        <section class="welcome-card">
+
+            <div>
+
+                <span class="welcome-label">
+                    AI-POWERED CLINICAL MONITORING
+                </span>
+
+
+                <h2>
+                    Welcome back, Doctor
+                </h2>
+
+
+                <p>
+                    Monitor sepsis patients and identify
+                    potential SAE risk using intelligent
+                    clinical predictions.
+                </p>
+
+            </div>
+
+
+            <div class="brain-icon">
+                🧠
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= STAT CARDS ================= -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    👥
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Patients
+                    </span>
+
+                    <h2>
+                        248
+                    </h2>
+
+                    <small>
+                        ↑ 12% this month
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon red">
+                    ⚠
+                </div>
+
+                <div>
+
+                    <span>
+                        High Risk Patients
+                    </span>
+
+                    <h2>
+                        32
+                    </h2>
+
+                    <small>
+                        ↑ 5 new today
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon orange">
+                    🧠
+                </div>
+
+                <div>
+
+                    <span>
+                        SAE Predictions
+                    </span>
+
+                    <h2>
+                        67
+                    </h2>
+
+                    <small>
+                        Last 30 days
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">
+                    ✓
+                </div>
+
+                <div>
+
+                    <span>
+                        Monitored Today
+                    </span>
+
+                    <h2>
+                        41
+                    </h2>
+
+                    <small>
+                        92% completed
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= CHARTS ================= -->
+
+        <section class="dashboard-grid">
+
+
+            <div class="panel large-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h3>
+                            SAE Risk Overview
+                        </h3>
+
+                        <p>
+                            Patient risk distribution
+                        </p>
+
+                    </div>
+
+
+                    <select>
+
+                        <option>
+                            Last 7 Days
+                        </option>
+
+                        <option>
+                            Last 30 Days
+                        </option>
+
+                        <option>
+                            Last 3 Months
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <canvas id="riskChart"></canvas>
+
+            </div>
+
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h3>
+                            Risk Distribution
+                        </h3>
+
+                        <p>
+                            Current patients
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <canvas id="distributionChart"></canvas>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= RECENT PATIENTS ================= -->
+
+        <section class="panel patients-panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h3>
+                        Recent Patient Monitoring
+                    </h3>
+
+                    <p>
+                        Latest clinical assessments
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="view-btn"
+                    onclick="window.location.href='patients.html'">
+
+                    View All
+
+                </button>
+
+            </div>
+
+
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Patient ID
+                        </th>
+
+                        <th>
+                            Patient Name
+                        </th>
+
+                        <th>
+                            Age
+                        </th>
+
+                        <th>
+                            Risk Level
+                        </th>
+
+                        <th>
+                            SAE Probability
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody>
+
+
+                    <tr>
+
+                        <td>
+                            #PT-1024
+                        </td>
+
+                        <td>
+                            Ramesh Kumar
+                        </td>
+
+                        <td>
+                            64
+                        </td>
+
+                        <td>
+
+                            <span class="badge high">
+                                High
+                            </span>
+
+                        </td>
+
+                        <td>
+                            82%
+                        </td>
+
+                        <td>
+
+                            <span class="status monitoring">
+                                Monitoring
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td>
+                            #PT-1023
+                        </td>
+
+                        <td>
+                            Sunita Patil
+                        </td>
+
+                        <td>
+                            58
+                        </td>
+
+                        <td>
+
+                            <span class="badge medium">
+                                Medium
+                            </span>
+
+                        </td>
+
+                        <td>
+                            54%
+                        </td>
+
+                        <td>
+
+                            <span class="status stable">
+                                Stable
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td>
+                            #PT-1022
+                        </td>
+
+                        <td>
+                            Arun Deshmukh
+                        </td>
+
+                        <td>
+                            71
+                        </td>
+
+                        <td>
+
+                            <span class="badge high">
+                                High
+                            </span>
+
+                        </td>
+
+                        <td>
+                            76%
+                        </td>
+
+                        <td>
+
+                            <span class="status monitoring">
+                                Monitoring
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td>
+                            #PT-1021
+                        </td>
+
+                        <td>
+                            Meena Joshi
+                        </td>
+
+                        <td>
+                            49
+                        </td>
+
+                        <td>
+
+                            <span class="badge low">
+                                Low
+                            </span>
+
+                        </td>
+
+                        <td>
+                            21%
+                        </td>
+
+                        <td>
+
+                            <span class="status stable">
+                                Stable
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- ================= CHART JAVASCRIPT ================= -->
+
+<script>
+
+
+// SAE RISK CHART
+
+const riskCanvas =
+    document.getElementById("riskChart");
+
+
+new Chart(riskCanvas, {
+
+    type: "line",
+
+    data: {
+
+        labels: [
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri",
+            "Sat",
+            "Sun"
+        ],
+
+        datasets: [
+
+            {
+                label: "High Risk",
+
+                data: [
+                    18,
+                    21,
+                    19,
+                    25,
+                    27,
+                    30,
+                    32
+                ],
+
+                borderWidth: 3,
+
+                tension: 0.4,
+
+                fill: false
+            },
+
+
+            {
+                label: "Medium Risk",
+
+                data: [
+                    32,
+                    35,
+                    34,
+                    38,
+                    40,
+                    39,
+                    42
+                ],
+
+                borderWidth: 2,
+
+                tension: 0.4,
+
+                fill: false
+            }
+
+        ]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        plugins: {
+
+            legend: {
+                position: "bottom"
+            }
+
+        }
+
+    }
+
+});
+
+
+
+// RISK DISTRIBUTION
+
+const distributionCanvas =
+    document.getElementById(
+        "distributionChart"
+    );
+
+
+new Chart(distributionCanvas, {
+
+    type: "doughnut",
+
+    data: {
+
+        labels: [
+            "Low Risk",
+            "Medium Risk",
+            "High Risk"
+        ],
+
+        datasets: [
+
+            {
+                data: [
+                    149,
+                    67,
+                    32
+                ],
+
+                borderWidth: 0
+            }
+
+        ]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        cutout: "68%",
+
+        plugins: {
+
+            legend: {
+                position: "bottom"
+            }
+
+        }
+
+    }
+
+});
+
+</script>
+
+
+</body>
+
+</html>

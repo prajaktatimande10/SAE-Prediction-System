@@ -1,0 +1,826 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Patient | SAE Prediction System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #1e293b;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: #0f172a;
+            color: white;
+            padding: 25px 15px;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo span {
+            color: #38bdf8;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 13px 16px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: #1e40af;
+            color: white;
+        }
+
+        .main {
+            margin-left: 240px;
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .topbar h1 {
+            font-size: 27px;
+        }
+
+        .topbar p {
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            background: white;
+            color: #334155;
+            padding: 11px 18px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 7px;
+            color: #475569;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            outline: none;
+            font-size: 14px;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        .button-area {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 22px;
+        }
+
+        .btn {
+            padding: 12px 22px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .cancel-btn {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .save-btn {
+            background: #2563eb;
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .message {
+            display: none;
+            padding: 12px;
+            border-radius: 7px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .success {
+            display: block;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        @media (max-width: 1000px) {
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+
+<div class="sidebar">
+
+    <div class="logo">
+        SAE <span>Predict</span>
+    </div>
+
+    <a href="dashboard.html" class="nav-item">
+        Dashboard
+    </a>
+
+    <a href="patients.html" class="nav-item active">
+        Patients
+    </a>
+
+    <a href="prediction.html" class="nav-item">
+        SAE Prediction
+    </a>
+
+    <a href="analytics.html" class="nav-item">
+        Analytics
+    </a>
+
+    <a href="reports.html" class="nav-item">
+        Reports
+    </a>
+
+    <a href="settings.html" class="nav-item">
+        Settings
+    </a>
+
+</div>
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="main">
+
+    <div class="topbar">
+
+        <div>
+            <h1>Add New Patient</h1>
+
+            <p>
+                Enter patient clinical information
+            </p>
+        </div>
+
+        <a href="patients.html" class="back-btn">
+            ← Back to Patients
+        </a>
+
+    </div>
+
+
+    <div id="message" class="message"></div>
+
+
+    <div class="form-card">
+
+        <form id="patientForm">
+
+
+            <!-- ================= BASIC INFORMATION ================= -->
+
+            <div class="section-title">
+                Patient Information
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        Patient ID <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="patientId"
+                        placeholder="PT-1001"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Patient Name <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="patientName"
+                        placeholder="Enter patient name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Age <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        id="patientAge"
+                        min="0"
+                        max="120"
+                        placeholder="45"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Gender</label>
+
+                    <select id="gender">
+
+                        <option value="">
+                            Select Gender
+                        </option>
+
+                        <option value="Male">
+                            Male
+                        </option>
+
+                        <option value="Female">
+                            Female
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Sepsis Status</label>
+
+                    <select id="sepsisStatus">
+
+                        <option value="">
+                            Select Status
+                        </option>
+
+                        <option value="Yes">
+                            Yes
+                        </option>
+
+                        <option value="No">
+                            No
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Consciousness</label>
+
+                    <select id="consciousness">
+
+                        <option value="">
+                            Select
+                        </option>
+
+                        <option value="Alert">
+                            Alert
+                        </option>
+
+                        <option value="Confused">
+                            Confused
+                        </option>
+
+                        <option value="Drowsy">
+                            Drowsy
+                        </option>
+
+                        <option value="Unresponsive">
+                            Unresponsive
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= VITAL SIGNS ================= -->
+
+            <div class="section-title">
+                Vital Signs
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        GCS Score
+                    </label>
+
+                    <input
+                        type="number"
+                        id="gcs"
+                        min="3"
+                        max="15"
+                        placeholder="15"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Heart Rate (bpm)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="heartRate"
+                        placeholder="80"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Blood Pressure
+                    </label>
+
+                    <input
+                        type="text"
+                        id="bloodPressure"
+                        placeholder="120/80"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Respiratory Rate
+                    </label>
+
+                    <input
+                        type="number"
+                        id="respiratoryRate"
+                        placeholder="18"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        SpO₂ (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="spo2"
+                        min="0"
+                        max="100"
+                        placeholder="98"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Temperature (°C)
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.1"
+                        id="temperature"
+                        placeholder="37.0"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= LAB RESULTS ================= -->
+
+            <div class="section-title">
+                Laboratory Results
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>
+                        WBC
+                    </label>
+
+                    <input
+                        type="number"
+                        id="wbc"
+                        placeholder="12000"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Lactate
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.1"
+                        id="lactate"
+                        placeholder="2.5"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Creatinine
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.1"
+                        id="creatinine"
+                        placeholder="1.2"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Bilirubin
+                    </label>
+
+                    <input
+                        type="number"
+                        step="0.1"
+                        id="bilirubin"
+                        placeholder="1.0"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Platelets
+                    </label>
+
+                    <input
+                        type="number"
+                        id="platelets"
+                        placeholder="150000"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= BUTTONS ================= -->
+
+            <div class="button-area">
+
+                <a
+                    href="patients.html"
+                    class="btn cancel-btn"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn save-btn"
+                >
+                    Add Patient
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+const API_URL = "http://127.0.0.1:5000";
+
+
+document
+.getElementById("patientForm")
+.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+
+    const message =
+        document.getElementById("message");
+
+
+    // Collect patient data
+
+    const patientData = {
+
+        patient_id:
+            document.getElementById("patientId").value.trim(),
+
+        name:
+            document.getElementById("patientName").value.trim(),
+
+        age:
+            Number(
+                document.getElementById("patientAge").value
+            ),
+
+        gender:
+            document.getElementById("gender").value,
+
+        sepsis_status:
+            document.getElementById("sepsisStatus").value,
+
+        gcs:
+            Number(
+                document.getElementById("gcs").value || 0
+            ),
+
+        heart_rate:
+            Number(
+                document.getElementById("heartRate").value || 0
+            ),
+
+        blood_pressure:
+            document.getElementById("bloodPressure").value,
+
+        respiratory_rate:
+            Number(
+                document.getElementById("respiratoryRate").value || 0
+            ),
+
+        spo2:
+            Number(
+                document.getElementById("spo2").value || 0
+            ),
+
+        temperature:
+            Number(
+                document.getElementById("temperature").value || 0
+            ),
+
+        wbc:
+            Number(
+                document.getElementById("wbc").value || 0
+            ),
+
+        lactate:
+            Number(
+                document.getElementById("lactate").value || 0
+            ),
+
+        creatinine:
+            Number(
+                document.getElementById("creatinine").value || 0
+            ),
+
+        bilirubin:
+            Number(
+                document.getElementById("bilirubin").value || 0
+            ),
+
+        platelets:
+            Number(
+                document.getElementById("platelets").value || 0
+            ),
+
+        consciousness:
+            document.getElementById("consciousness").value
+
+    };
+
+
+    // Send data to Flask
+
+    try {
+
+        const response = await fetch(
+            `${API_URL}/api/patients`,
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(patientData)
+            }
+        );
+
+
+        const result =
+            await response.json();
+
+
+        // Successful
+
+        if (response.ok) {
+
+            message.className =
+                "message success";
+
+            message.textContent =
+                "Patient added successfully!";
+
+
+            // Redirect after short delay
+
+            setTimeout(function() {
+
+                window.location.href =
+                    "patients.html";
+
+            }, 1000);
+
+        }
+
+        // Backend error
+
+        else {
+
+            message.className =
+                "message error";
+
+            message.textContent =
+                result.message ||
+                "Unable to add patient.";
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Backend Error:",
+            error
+        );
+
+
+        message.className =
+            "message error";
+
+        message.textContent =
+            "Cannot connect to Flask backend. Make sure the backend is running.";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
+```

@@ -1,0 +1,25 @@
+# Python virtual environment
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment files
+.env
+
+# VS Code
+.vscode/
+
+# Local patient data
+backend/data/patients.json
+
+# Database local files
+*.db
+*.sqlite
+*.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
