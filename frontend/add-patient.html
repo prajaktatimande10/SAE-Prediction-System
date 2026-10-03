@@ -1,113 +1,315 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Add Patient | SAE Prediction System</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Add New Patient | SAE Prediction System</title>
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         body {
-            background: #f4f7fb;
-            color: #1e293b;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top right, rgba(0, 220, 255, 0.10), transparent 30%),
+                linear-gradient(135deg, #06111f, #081827 55%, #05101c);
+            color: #ffffff;
         }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
 
         .sidebar {
             position: fixed;
             left: 0;
             top: 0;
-            width: 240px;
+            width: 250px;
             height: 100vh;
-            background: #0f172a;
-            color: white;
-            padding: 25px 15px;
+
+            background: rgba(5, 18, 32, 0.96);
+
+            border-right: 1px solid rgba(0, 220, 255, 0.12);
+
+            padding: 25px 18px;
+
+            z-index: 10;
         }
 
         .logo {
-            font-size: 21px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            padding: 5px 10px 30px;
         }
 
-        .logo span {
-            color: #38bdf8;
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: linear-gradient(
+                135deg,
+                #00d9ff,
+                #008cff
+            );
+
+            color: #03111e;
+
+            font-size: 20px;
+            font-weight: bold;
+
+            box-shadow: 0 0 25px rgba(0, 217, 255, 0.25);
+        }
+
+        .logo-text h2 {
+            font-size: 17px;
+            color: #ffffff;
+        }
+
+        .logo-text span {
+            display: block;
+            margin-top: 3px;
+
+            color: #7f9bb2;
+            font-size: 11px;
+        }
+
+        .nav-title {
+            color: #587287;
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            margin: 15px 12px 10px;
         }
 
         .nav-item {
-            display: block;
-            padding: 13px 16px;
-            margin-bottom: 8px;
-            border-radius: 8px;
-            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            padding: 13px 14px;
+
+            margin-bottom: 6px;
+
+            border-radius: 10px;
+
+            color: #8fa7b9;
+
             text-decoration: none;
+
             font-size: 14px;
+
+            transition: 0.25s;
         }
 
-        .nav-item:hover,
-        .nav-item.active {
-            background: #1e40af;
-            color: white;
+        .nav-item:hover {
+            background: rgba(0, 217, 255, 0.08);
+            color: #ffffff;
         }
+
+        .nav-item.active {
+            background: linear-gradient(
+                90deg,
+                rgba(0, 217, 255, 0.16),
+                rgba(0, 140, 255, 0.08)
+            );
+
+            color: #00d9ff;
+
+            border-left: 3px solid #00d9ff;
+        }
+
+        .nav-icon {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
 
         .main {
-            margin-left: 240px;
-            padding: 30px;
+            margin-left: 250px;
+
+            min-height: 100vh;
+
+            padding: 28px 35px;
         }
+
+        /* =========================
+           TOPBAR
+        ========================= */
 
         .topbar {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            justify-content: space-between;
+
+            margin-bottom: 28px;
         }
 
-        .topbar h1 {
+        .page-title h1 {
             font-size: 27px;
+            font-weight: 700;
         }
 
-        .topbar p {
-            color: #64748b;
-            margin-top: 5px;
+        .page-title p {
+            margin-top: 7px;
+
+            color: #7890a4;
+
+            font-size: 13px;
         }
 
-        .back-btn {
-            text-decoration: none;
-            background: white;
-            color: #334155;
-            padding: 11px 18px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
+        .doctor {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
+
+        .doctor-avatar {
+            width: 43px;
+            height: 43px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: linear-gradient(
+                135deg,
+                #00d9ff,
+                #0077ff
+            );
+
+            color: #02101c;
+
+            font-weight: bold;
+        }
+
+        .doctor-info strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .doctor-info span {
+            color: #6f899d;
+            font-size: 11px;
+        }
+
+        /* =========================
+           FORM CARD
+        ========================= */
 
         .form-card {
-            background: white;
-            border-radius: 12px;
-            padding: 28px;
-            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06);
+
+            max-width: 1100px;
+
+            background: rgba(9, 29, 48, 0.72);
+
+            border: 1px solid rgba(0, 217, 255, 0.13);
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255,255,255,0.02);
+
+            backdrop-filter: blur(14px);
         }
 
+        .card-header {
+
+            display: flex;
+            align-items: center;
+            gap: 15px;
+
+            margin-bottom: 30px;
+
+            padding-bottom: 20px;
+
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .card-icon {
+
+            width: 50px;
+            height: 50px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: rgba(0, 217, 255, 0.10);
+
+            color: #00d9ff;
+
+            font-size: 22px;
+        }
+
+        .card-header h2 {
+            font-size: 19px;
+        }
+
+        .card-header p {
+            color: #71899c;
+
+            margin-top: 5px;
+
+            font-size: 12px;
+        }
+
+        /* =========================
+           FORM GRID
+        ========================= */
+
         .section-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #e2e8f0;
+
+            margin: 25px 0 15px;
+
+            color: #00d9ff;
+
+            font-size: 13px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
         }
 
         .form-grid {
+
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-            margin-bottom: 30px;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
         }
 
         .form-group {
@@ -115,241 +317,612 @@
             flex-direction: column;
         }
 
-        .form-group label {
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 7px;
-            color: #475569;
+        .form-group.full {
+            grid-column: 1 / -1;
         }
 
-        .form-group input,
-        .form-group select {
+        label {
+
+            margin-bottom: 8px;
+
+            color: #a8bac9;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+        label span {
+            color: #00d9ff;
+        }
+
+        input,
+        select {
+
             width: 100%;
-            padding: 11px 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 7px;
+
+            padding: 13px 14px;
+
+            border-radius: 10px;
+
+            border: 1px solid rgba(130, 170, 200, 0.16);
+
+            background: rgba(3, 16, 28, 0.75);
+
+            color: #ffffff;
+
             outline: none;
-            font-size: 14px;
-            background: white;
+
+            font-size: 13px;
+
+            transition: 0.25s;
         }
 
-        .form-group input:focus,
-        .form-group select:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+        input:focus,
+        select:focus {
+
+            border-color: #00d9ff;
+
+            box-shadow:
+                0 0 0 3px rgba(0, 217, 255, 0.08);
+
+            background: rgba(3, 20, 34, 0.95);
         }
 
-        .required {
-            color: #ef4444;
+        input::placeholder {
+            color: #536c80;
         }
 
-        .button-area {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 22px;
-        }
-
-        .btn {
-            padding: 12px 22px;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .cancel-btn {
-            background: #e2e8f0;
-            color: #334155;
-        }
-
-        .save-btn {
-            background: #2563eb;
+        select option {
+            background: #081827;
             color: white;
         }
 
-        .save-btn:hover {
-            background: #1d4ed8;
+        .hint {
+
+            margin-top: 6px;
+
+            color: #526b7f;
+
+            font-size: 10px;
         }
+
+        /* =========================
+           NEW PATIENT NOTICE
+        ========================= */
+
+        .new-patient-notice {
+
+            display: flex;
+
+            gap: 12px;
+
+            padding: 14px 16px;
+
+            margin-bottom: 25px;
+
+            border-radius: 12px;
+
+            background: rgba(0, 217, 255, 0.06);
+
+            border: 1px solid rgba(0, 217, 255, 0.13);
+
+            color: #91aabc;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+        .new-patient-notice strong {
+            color: #00d9ff;
+        }
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .actions {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 12px;
+
+            margin-top: 32px;
+
+            padding-top: 22px;
+
+            border-top: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .btn {
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            border: none;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition: 0.25s;
+
+            text-decoration: none;
+        }
+
+        .btn-cancel {
+
+            background: rgba(255,255,255,0.05);
+
+            color: #91a6b6;
+
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .btn-cancel:hover {
+
+            background: rgba(255,255,255,0.09);
+
+            color: white;
+        }
+
+        .btn-save {
+
+            background: linear-gradient(
+                135deg,
+                #00d9ff,
+                #008cff
+            );
+
+            color: #03111e;
+
+            box-shadow:
+                0 8px 25px rgba(0, 180, 255, 0.18);
+        }
+
+        .btn-save:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 30px rgba(0, 180, 255, 0.28);
+        }
+
+        .btn-save:disabled {
+
+            opacity: 0.55;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+        /* =========================
+           MESSAGE
+        ========================= */
 
         .message {
+
             display: none;
-            padding: 12px;
-            border-radius: 7px;
+
             margin-bottom: 20px;
-            font-size: 14px;
+
+            padding: 13px 16px;
+
+            border-radius: 10px;
+
+            font-size: 13px;
         }
 
-        .success {
+        .message.success {
+
             display: block;
-            background: #dcfce7;
-            color: #166534;
+
+            background: rgba(0, 220, 150, 0.10);
+
+            border: 1px solid rgba(0, 220, 150, 0.25);
+
+            color: #5ff0b7;
         }
 
-        .error {
+        .message.error {
+
             display: block;
-            background: #fee2e2;
-            color: #991b1b;
+
+            background: rgba(255, 70, 90, 0.10);
+
+            border: 1px solid rgba(255, 70, 90, 0.25);
+
+            color: #ff8795;
         }
 
-        @media (max-width: 1000px) {
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media(max-width: 900px) {
+
+            .sidebar {
+                width: 210px;
+            }
+
+            .main {
+                margin-left: 210px;
+            }
+
             .form-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
         }
 
-        @media (max-width: 700px) {
+        @media(max-width: 700px) {
+
             .sidebar {
-                width: 100%;
-                height: auto;
                 position: relative;
+
+                width: 100%;
+
+                height: auto;
             }
 
             .main {
                 margin-left: 0;
+
+                padding: 20px;
             }
 
             .form-grid {
                 grid-template-columns: 1fr;
             }
+
+            .topbar {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 18px;
+            }
+
+            .form-card {
+                padding: 20px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+
+                text-align: center;
+            }
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-<!-- ================= SIDEBAR ================= -->
 
-<div class="sidebar">
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
 
     <div class="logo">
-        SAE <span>Predict</span>
+
+        <div class="logo-icon">
+            +
+        </div>
+
+        <div class="logo-text">
+
+            <h2>SAE Predict</h2>
+
+            <span>Clinical AI System</span>
+
+        </div>
+
     </div>
 
-    <a href="dashboard.html" class="nav-item">
+
+    <div class="nav-title">
+        Main Menu
+    </div>
+
+
+    <a href="dashboard.html"
+       class="nav-item">
+
+        <span class="nav-icon">▦</span>
+
         Dashboard
+
     </a>
 
-    <a href="patients.html" class="nav-item active">
+
+    <a href="patients.html"
+       class="nav-item active">
+
+        <span class="nav-icon">♙</span>
+
         Patients
+
     </a>
 
-    <a href="prediction.html" class="nav-item">
-        SAE Prediction
+
+    <a href="#"
+       class="nav-item">
+
+        <span class="nav-icon">◈</span>
+
+        Prediction
+
     </a>
 
-    <a href="analytics.html" class="nav-item">
+
+    <a href="#"
+       class="nav-item">
+
+        <span class="nav-icon">◌</span>
+
         Analytics
+
     </a>
 
-    <a href="reports.html" class="nav-item">
+
+    <a href="#"
+       class="nav-item">
+
+        <span class="nav-icon">▤</span>
+
         Reports
+
     </a>
 
-    <a href="settings.html" class="nav-item">
+
+    <div class="nav-title">
+        System
+    </div>
+
+
+    <a href="#"
+       class="nav-item">
+
+        <span class="nav-icon">⚙</span>
+
         Settings
+
     </a>
 
-</div>
+
+    <a href="#"
+       class="nav-item">
+
+        <span class="nav-icon">↪</span>
+
+        Logout
+
+    </a>
+
+</aside>
 
 
-<!-- ================= MAIN ================= -->
 
-<div class="main">
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+    <!-- TOPBAR -->
 
     <div class="topbar">
 
-        <div>
+        <div class="page-title">
+
             <h1>Add New Patient</h1>
 
             <p>
-                Enter patient clinical information
+                Create a new ICU patient record
             </p>
+
         </div>
 
-        <a href="patients.html" class="back-btn">
-            ← Back to Patients
-        </a>
+
+        <div class="doctor">
+
+            <div class="doctor-avatar">
+                RS
+            </div>
+
+            <div class="doctor-info">
+
+                <strong>
+                    Dr. Rahul Sharma
+                </strong>
+
+                <span>
+                    Critical Care Specialist
+                </span>
+
+            </div>
+
+        </div>
 
     </div>
 
 
-    <div id="message" class="message"></div>
 
+    <!-- FORM CARD -->
 
     <div class="form-card">
+
+
+        <div class="card-header">
+
+            <div class="card-icon">
+                +
+            </div>
+
+            <div>
+
+                <h2>Patient Information</h2>
+
+                <p>
+                    Enter the information for the new ICU patient
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- NOTICE -->
+
+        <div class="new-patient-notice">
+
+            <div>
+                ℹ
+            </div>
+
+            <div>
+
+                <strong>New patient record</strong><br>
+
+                This form creates a new record in the SAE
+                Prediction System. The patient does not need
+                to already exist in your Excel dataset.
+
+            </div>
+
+        </div>
+
+
+
+        <!-- MESSAGE -->
+
+        <div id="message"
+             class="message">
+        </div>
+
+
 
         <form id="patientForm">
 
 
-            <!-- ================= BASIC INFORMATION ================= -->
+            <!-- ==========================================
+                 IDENTIFICATION
+            =========================================== -->
 
             <div class="section-title">
-                Patient Information
+                Patient Identification
             </div>
+
 
             <div class="form-grid">
 
-                <div class="form-group">
-
-                    <label>
-                        Patient ID <span class="required">*</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        id="patientId"
-                        placeholder="PT-1001"
-                        required
-                    >
-
-                </div>
-
 
                 <div class="form-group">
 
                     <label>
-                        Patient Name <span class="required">*</span>
-                    </label>
-
-                    <input
-                        type="text"
-                        id="patientName"
-                        placeholder="Enter patient name"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Age <span class="required">*</span>
+                        Subject ID <span>*</span>
                     </label>
 
                     <input
                         type="number"
-                        id="patientAge"
-                        min="0"
-                        max="120"
-                        placeholder="45"
+                        id="subject_id"
+                        placeholder="Example: 200001"
                         required
                     >
+
+                    <div class="hint">
+                        Enter a new unique patient/person ID.
+                    </div>
 
                 </div>
 
 
+
                 <div class="form-group">
 
-                    <label>Gender</label>
+                    <label>
+                        Admission ID <span>*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        id="hadm_id"
+                        placeholder="Example: 300001"
+                        required
+                    >
+
+                    <div class="hint">
+                        Enter the hospital admission ID.
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label>
+                        ICU Stay ID <span>*</span>
+                    </label>
+
+                    <input
+                        type="number"
+                        id="stay_id"
+                        placeholder="Example: 400001"
+                        required
+                    >
+
+                    <div class="hint">
+                        Must be different from existing ICU Stay IDs.
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ==========================================
+                 BASIC INFORMATION
+            =========================================== -->
+
+            <div class="section-title">
+                Basic Information
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Gender
+                    </label>
 
                     <select id="gender">
 
                         <option value="">
-                            Select Gender
+                            Select gender
                         </option>
 
                         <option value="Male">
@@ -369,458 +942,591 @@
                 </div>
 
 
-                <div class="form-group">
-
-                    <label>Sepsis Status</label>
-
-                    <select id="sepsisStatus">
-
-                        <option value="">
-                            Select Status
-                        </option>
-
-                        <option value="Yes">
-                            Yes
-                        </option>
-
-                        <option value="No">
-                            No
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>Consciousness</label>
-
-                    <select id="consciousness">
-
-                        <option value="">
-                            Select
-                        </option>
-
-                        <option value="Alert">
-                            Alert
-                        </option>
-
-                        <option value="Confused">
-                            Confused
-                        </option>
-
-                        <option value="Drowsy">
-                            Drowsy
-                        </option>
-
-                        <option value="Unresponsive">
-                            Unresponsive
-                        </option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-
-            <!-- ================= VITAL SIGNS ================= -->
-
-            <div class="section-title">
-                Vital Signs
-            </div>
-
-            <div class="form-grid">
 
                 <div class="form-group">
 
                     <label>
-                        GCS Score
+                        Age
                     </label>
 
                     <input
                         type="number"
-                        id="gcs"
-                        min="3"
-                        max="15"
-                        placeholder="15"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Heart Rate (bpm)
-                    </label>
-
-                    <input
-                        type="number"
-                        id="heartRate"
-                        placeholder="80"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Blood Pressure
-                    </label>
-
-                    <input
-                        type="text"
-                        id="bloodPressure"
-                        placeholder="120/80"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Respiratory Rate
-                    </label>
-
-                    <input
-                        type="number"
-                        id="respiratoryRate"
-                        placeholder="18"
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label>
-                        SpO₂ (%)
-                    </label>
-
-                    <input
-                        type="number"
-                        id="spo2"
+                        id="age"
                         min="0"
-                        max="100"
-                        placeholder="98"
+                        max="120"
+                        step="0.01"
+                        placeholder="Example: 45"
                     >
 
                 </div>
 
-
-                <div class="form-group">
-
-                    <label>
-                        Temperature (°C)
-                    </label>
-
-                    <input
-                        type="number"
-                        step="0.1"
-                        id="temperature"
-                        placeholder="37.0"
-                    >
-
-                </div>
 
             </div>
 
 
-            <!-- ================= LAB RESULTS ================= -->
+
+            <!-- ==========================================
+                 ICU INFORMATION
+            =========================================== -->
 
             <div class="section-title">
-                Laboratory Results
+                ICU Stay Information
             </div>
+
 
             <div class="form-grid">
 
+
                 <div class="form-group">
 
                     <label>
-                        WBC
+                        ICU Admission Date & Time
                     </label>
 
                     <input
-                        type="number"
-                        id="wbc"
-                        placeholder="12000"
+                        type="datetime-local"
+                        id="intime"
                     >
 
                 </div>
 
 
+
                 <div class="form-group">
 
                     <label>
-                        Lactate
+                        ICU Discharge Date & Time
                     </label>
 
                     <input
-                        type="number"
-                        step="0.1"
-                        id="lactate"
-                        placeholder="2.5"
+                        type="datetime-local"
+                        id="outtime"
                     >
 
                 </div>
 
 
-                <div class="form-group">
-
-                    <label>
-                        Creatinine
-                    </label>
-
-                    <input
-                        type="number"
-                        step="0.1"
-                        id="creatinine"
-                        placeholder="1.2"
-                    >
-
-                </div>
-
 
                 <div class="form-group">
 
                     <label>
-                        Bilirubin
+                        ICU Length of Stay (Hours)
                     </label>
 
                     <input
                         type="number"
-                        step="0.1"
-                        id="bilirubin"
-                        placeholder="1.0"
+                        id="icu_los_hours"
+                        min="0"
+                        step="0.01"
+                        placeholder="Automatically calculated"
                     >
+
+                    <div class="hint">
+                        Automatically calculated from admission and discharge time.
+                    </div>
 
                 </div>
 
-
-                <div class="form-group">
-
-                    <label>
-                        Platelets
-                    </label>
-
-                    <input
-                        type="number"
-                        id="platelets"
-                        placeholder="150000"
-                    >
-
-                </div>
 
             </div>
 
 
-            <!-- ================= BUTTONS ================= -->
 
-            <div class="button-area">
+            <!-- ==========================================
+                 BUTTONS
+            =========================================== -->
+
+            <div class="actions">
 
                 <a
                     href="patients.html"
-                    class="btn cancel-btn"
+                    class="btn btn-cancel"
                 >
                     Cancel
                 </a>
 
+
                 <button
                     type="submit"
-                    class="btn save-btn"
+                    class="btn btn-save"
+                    id="saveBtn"
                 >
-                    Add Patient
+                    + Add New Patient
                 </button>
 
             </div>
 
+
         </form>
+
 
     </div>
 
-</div>
+
+</main>
 
 
-<!-- ================= JAVASCRIPT ================= -->
 
 <script>
 
 const API_URL = "http://127.0.0.1:5000";
 
+const form = document.getElementById("patientForm");
 
-document
-.getElementById("patientForm")
-.addEventListener("submit", async function(event) {
+const message = document.getElementById("message");
 
-    event.preventDefault();
+const saveBtn = document.getElementById("saveBtn");
 
+const intimeInput =
+    document.getElementById("intime");
 
-    const message =
-        document.getElementById("message");
+const outtimeInput =
+    document.getElementById("outtime");
 
-
-    // Collect patient data
-
-    const patientData = {
-
-        patient_id:
-            document.getElementById("patientId").value.trim(),
-
-        name:
-            document.getElementById("patientName").value.trim(),
-
-        age:
-            Number(
-                document.getElementById("patientAge").value
-            ),
-
-        gender:
-            document.getElementById("gender").value,
-
-        sepsis_status:
-            document.getElementById("sepsisStatus").value,
-
-        gcs:
-            Number(
-                document.getElementById("gcs").value || 0
-            ),
-
-        heart_rate:
-            Number(
-                document.getElementById("heartRate").value || 0
-            ),
-
-        blood_pressure:
-            document.getElementById("bloodPressure").value,
-
-        respiratory_rate:
-            Number(
-                document.getElementById("respiratoryRate").value || 0
-            ),
-
-        spo2:
-            Number(
-                document.getElementById("spo2").value || 0
-            ),
-
-        temperature:
-            Number(
-                document.getElementById("temperature").value || 0
-            ),
-
-        wbc:
-            Number(
-                document.getElementById("wbc").value || 0
-            ),
-
-        lactate:
-            Number(
-                document.getElementById("lactate").value || 0
-            ),
-
-        creatinine:
-            Number(
-                document.getElementById("creatinine").value || 0
-            ),
-
-        bilirubin:
-            Number(
-                document.getElementById("bilirubin").value || 0
-            ),
-
-        platelets:
-            Number(
-                document.getElementById("platelets").value || 0
-            ),
-
-        consciousness:
-            document.getElementById("consciousness").value
-
-    };
+const losInput =
+    document.getElementById("icu_los_hours");
 
 
-    // Send data to Flask
 
-    try {
+/* =====================================================
+   MESSAGE
+===================================================== */
 
-        const response = await fetch(
-            `${API_URL}/api/patients`,
-            {
-                method: "POST",
+function showMessage(text, type) {
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
+    message.textContent = text;
 
-                body: JSON.stringify(patientData)
-            }
-        );
+    message.className =
+        "message " + type;
+
+}
 
 
-        const result =
-            await response.json();
+
+/* =====================================================
+   DATETIME CONVERSION
+===================================================== */
+
+function getDateTimeValue(id) {
+
+    const input =
+        document.getElementById(id);
+
+    const value =
+        input.value.trim();
+
+    if (!value) {
+        return null;
+    }
+
+    return value.replace("T", " ") + ":00";
+}
 
 
-        // Successful
 
-        if (response.ok) {
+/* =====================================================
+   AUTOMATIC ICU LOS CALCULATION
+===================================================== */
 
-            message.className =
-                "message success";
+function calculateICULengthOfStay() {
 
-            message.textContent =
-                "Patient added successfully!";
+    if (
+        !intimeInput.value ||
+        !outtimeInput.value
+    ) {
 
-
-            // Redirect after short delay
-
-            setTimeout(function() {
-
-                window.location.href =
-                    "patients.html";
-
-            }, 1000);
-
-        }
-
-        // Backend error
-
-        else {
-
-            message.className =
-                "message error";
-
-            message.textContent =
-                result.message ||
-                "Unable to add patient.";
-
-        }
-
-
-    } catch (error) {
-
-        console.error(
-            "Backend Error:",
-            error
-        );
-
-
-        message.className =
-            "message error";
-
-        message.textContent =
-            "Cannot connect to Flask backend. Make sure the backend is running.";
+        return;
 
     }
 
-});
+
+    const admission =
+        new Date(intimeInput.value);
+
+    const discharge =
+        new Date(outtimeInput.value);
+
+
+    if (
+        isNaN(admission.getTime()) ||
+        isNaN(discharge.getTime())
+    ) {
+
+        return;
+
+    }
+
+
+    if (discharge < admission) {
+
+        losInput.value = "";
+
+        return;
+
+    }
+
+
+    const difference =
+        discharge.getTime() -
+        admission.getTime();
+
+
+    const hours =
+        difference / (1000 * 60 * 60);
+
+
+    losInput.value =
+        hours.toFixed(2);
+
+}
+
+
+
+/* =====================================================
+   DATE EVENTS
+===================================================== */
+
+intimeInput.addEventListener(
+    "change",
+    calculateICULengthOfStay
+);
+
+outtimeInput.addEventListener(
+    "change",
+    calculateICULengthOfStay
+);
+
+
+
+/* =====================================================
+   FORM SUBMIT
+===================================================== */
+
+form.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        saveBtn.disabled = true;
+
+        saveBtn.textContent =
+            "Saving Patient...";
+
+
+
+        /* ---------------------------------------------
+           GET VALUES
+        --------------------------------------------- */
+
+        const subjectId =
+            document
+                .getElementById("subject_id")
+                .value
+                .trim();
+
+
+        const hadmId =
+            document
+                .getElementById("hadm_id")
+                .value
+                .trim();
+
+
+        const stayId =
+            document
+                .getElementById("stay_id")
+                .value
+                .trim();
+
+
+
+        /* ---------------------------------------------
+           VALIDATION
+        --------------------------------------------- */
+
+        if (!subjectId) {
+
+            showMessage(
+                "Please enter Subject ID.",
+                "error"
+            );
+
+            resetButton();
+
+            return;
+
+        }
+
+
+        if (!hadmId) {
+
+            showMessage(
+                "Please enter Admission ID.",
+                "error"
+            );
+
+            resetButton();
+
+            return;
+
+        }
+
+
+        if (!stayId) {
+
+            showMessage(
+                "Please enter ICU Stay ID.",
+                "error"
+            );
+
+            resetButton();
+
+            return;
+
+        }
+
+
+
+        /* ---------------------------------------------
+           DATETIME
+        --------------------------------------------- */
+
+        const intime =
+            getDateTimeValue("intime");
+
+
+        const outtime =
+            getDateTimeValue("outtime");
+
+
+
+        /* ---------------------------------------------
+           DATE VALIDATION
+        --------------------------------------------- */
+
+        if (intime && outtime) {
+
+            const admissionDate =
+                new Date(
+                    intime.replace(
+                        " ",
+                        "T"
+                    )
+                );
+
+
+            const dischargeDate =
+                new Date(
+                    outtime.replace(
+                        " ",
+                        "T"
+                    )
+                );
+
+
+            if (
+                dischargeDate <
+                admissionDate
+            ) {
+
+                showMessage(
+                    "ICU Discharge time cannot be earlier than ICU Admission time.",
+                    "error"
+                );
+
+                resetButton();
+
+                return;
+
+            }
+
+        }
+
+
+
+        /* ---------------------------------------------
+           PATIENT OBJECT
+        --------------------------------------------- */
+
+        const patient = {
+
+            subject_id:
+                Number(subjectId),
+
+            hadm_id:
+                Number(hadmId),
+
+            stay_id:
+                Number(stayId),
+
+            gender:
+                document
+                    .getElementById("gender")
+                    .value || null,
+
+            age:
+                document
+                    .getElementById("age")
+                    .value
+                    ? Number(
+                        document
+                            .getElementById("age")
+                            .value
+                    )
+                    : null,
+
+            intime:
+                intime,
+
+            outtime:
+                outtime,
+
+            icu_los_hours:
+                document
+                    .getElementById(
+                        "icu_los_hours"
+                    )
+                    .value
+                    ? Number(
+                        document
+                            .getElementById(
+                                "icu_los_hours"
+                            )
+                            .value
+                    )
+                    : null
+
+        };
+
+
+
+        console.log(
+            "NEW PATIENT:",
+            patient
+        );
+
+
+
+        /* ---------------------------------------------
+           SEND TO FLASK
+        --------------------------------------------- */
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/patients`,
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(
+                                patient
+                            )
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "SERVER RESPONSE:",
+                data
+            );
+
+
+
+            /* -----------------------------------------
+               ERROR
+            ----------------------------------------- */
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to add patient"
+                );
+
+            }
+
+
+
+            /* -----------------------------------------
+               SUCCESS
+            ----------------------------------------- */
+
+            showMessage(
+                "✅ New patient added successfully!",
+                "success"
+            );
+
+
+            saveBtn.textContent =
+                "Patient Added ✓";
+
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "patients.html";
+
+                },
+                1200
+            );
+
+
+        }
+
+        catch(error) {
+
+            console.error(
+                "ADD PATIENT ERROR:",
+                error
+            );
+
+
+            showMessage(
+                "❌ " + error.message,
+                "error"
+            );
+
+
+            resetButton();
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   RESET BUTTON
+===================================================== */
+
+function resetButton() {
+
+    saveBtn.disabled = false;
+
+    saveBtn.textContent =
+        "+ Add New Patient";
+
+}
 
 </script>
 
+
 </body>
+
 </html>
-```

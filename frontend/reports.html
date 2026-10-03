@@ -4,298 +4,1210 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Reports - SAE Prediction System</title>
+<title>Reports | SAE Predict</title>
 
-    <link rel="stylesheet" href="css/style.css">
+<style>
 
-    <style>
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-        .reports-page {
-            padding: 28px;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
 
-        .page-heading {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
+:root{
+    --bg:#07111f;
+    --bg2:#0b1728;
+    --card:rgba(15,31,52,.82);
+    --cyan:#42d9ff;
+    --cyan2:#00a9d8;
+    --text:#edf8ff;
+    --muted:#8fa8bd;
+    --green:#35e0a1;
+    --yellow:#ffc857;
+    --red:#ff647c;
+    --border:rgba(83,211,255,.14);
+    --shadow:0 20px 60px rgba(0,0,0,.30);
+}
 
-        .page-heading h1 {
-            margin: 0;
-            color: #172033;
-            font-size: 28px;
-        }
+body{
+    min-height:100vh;
+    color:var(--text);
 
-        .page-heading p {
-            margin-top: 7px;
-            color: #718096;
-        }
+    background:
+        radial-gradient(
+            circle at 85% 5%,
+            rgba(0,201,255,.11),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 10% 80%,
+            rgba(0,150,255,.07),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+            #050d18,
+            #091727 55%,
+            #06111e
+        );
+}
 
-        .report-actions {
-            display: flex;
-            gap: 10px;
-        }
 
-        .report-btn {
-            border: none;
-            padding: 11px 17px;
-            border-radius: 7px;
-            cursor: pointer;
-            font-weight: 600;
-        }
+/* =========================================================
+   LAYOUT
+========================================================= */
 
-        .generate-btn {
-            background: #2563eb;
-            color: white;
-        }
+.dashboard{
+    min-height:100vh;
+}
 
-        .print-btn {
-            background: #e8f0ff;
-            color: #2563eb;
-        }
+.sidebar{
+    width:250px;
+    min-height:100vh;
 
-        .report-btn:hover {
-            opacity: 0.9;
-        }
+    position:fixed;
+    left:0;
+    top:0;
 
-        /* FILTER */
+    padding:25px 16px;
 
-        .filter-panel {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
-            margin-bottom: 22px;
+    background:rgba(5,15,28,.95);
 
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+    border-right:
+        1px solid rgba(79,211,255,.12);
 
-        .search-box {
-            flex: 1;
-            min-width: 250px;
-        }
+    backdrop-filter:blur(20px);
 
-        .search-box input,
-        .filter-panel select {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 11px;
-            border: 1px solid #d9e2ec;
-            border-radius: 7px;
-            outline: none;
-        }
+    z-index:100;
+}
 
-        .filter-panel select {
-            width: 180px;
-        }
 
-        /* REPORT CARD */
+/* =========================================================
+   LOGO
+========================================================= */
 
-        .report-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.06);
-            margin-bottom: 22px;
-            overflow: hidden;
-        }
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
 
-        .report-header {
-            padding: 20px;
-            border-bottom: 1px solid #edf2f7;
+    padding:
+        8px
+        10px
+        30px;
+}
 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.logo-icon{
+    width:46px;
+    height:46px;
 
-        .patient-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-        .patient-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: #e8f0ff;
-            color: #2563eb;
+    border-radius:14px;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+    background:
+        linear-gradient(
+            135deg,
+            #123d59,
+            #087ca4
+        );
 
-            font-size: 20px;
-            font-weight: 700;
-        }
+    box-shadow:
+        0 0 25px
+        rgba(66,217,255,.20);
 
-        .patient-info h2 {
-            margin: 0;
-            font-size: 18px;
-            color: #172033;
-        }
+    font-size:22px;
+}
 
-        .patient-info p {
-            margin: 4px 0 0;
-            font-size: 12px;
-            color: #718096;
-        }
+.logo strong{
+    display:block;
+    font-size:19px;
+}
 
-        .report-date {
-            color: #64748b;
-            font-size: 13px;
-        }
+.logo small{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-top:3px;
+}
 
-        /* SUMMARY */
 
-        .report-summary {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            padding: 20px;
-        }
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
-        .summary-box {
-            background: #f8fafc;
-            padding: 16px;
-            border-radius: 8px;
-        }
+.sidebar nav{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
 
-        .summary-box span {
-            display: block;
-            color: #64748b;
-            font-size: 12px;
-            margin-bottom: 7px;
-        }
+.sidebar nav a,
+.sidebar-bottom a{
+    display:flex;
+    align-items:center;
+    gap:13px;
 
-        .summary-box strong {
-            font-size: 20px;
-            color: #172033;
-        }
+    padding:13px 14px;
 
-        .risk-high {
-            color: #dc2626 !important;
-        }
+    border-radius:12px;
 
-        .risk-medium {
-            color: #d97706 !important;
-        }
+    color:#91aabd;
 
-        .risk-low {
-            color: #16a34a !important;
-        }
+    text-decoration:none;
 
-        /* REPORT BODY */
+    font-size:14px;
 
-        .report-body {
-            padding: 20px;
-            border-top: 1px solid #edf2f7;
-        }
+    transition:.25s;
+}
 
-        .report-body h3 {
-            margin: 0 0 12px;
-            color: #172033;
-            font-size: 16px;
-        }
+.sidebar nav a span,
+.sidebar-bottom a span{
+    width:22px;
+    text-align:center;
+}
 
-        .clinical-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-        }
+.sidebar nav a:hover,
+.sidebar-bottom a:hover{
+    color:white;
 
-        .clinical-item {
-            border: 1px solid #edf2f7;
-            padding: 12px;
-            border-radius: 7px;
-        }
+    background:
+        rgba(66,217,255,.08);
 
-        .clinical-item span {
-            display: block;
-            font-size: 11px;
-            color: #64748b;
-        }
+    transform:translateX(3px);
+}
 
-        .clinical-item strong {
-            display: block;
-            margin-top: 4px;
-            color: #334155;
-        }
+.sidebar nav a.active{
+    color:white;
 
-        /* FOOTER */
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,190,235,.22),
+            rgba(0,190,235,.06)
+        );
 
-        .report-footer {
-            padding: 15px 20px;
-            background: #f8fafc;
+    border:
+        1px solid
+        rgba(66,217,255,.18);
 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    box-shadow:
+        0 0 25px
+        rgba(0,190,235,.07);
+}
 
-        .model-info {
-            font-size: 12px;
-            color: #64748b;
-        }
+.sidebar-bottom{
+    position:absolute;
 
-        .view-report {
-            border: none;
-            background: #2563eb;
-            color: white;
-            padding: 8px 14px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
+    left:16px;
+    right:16px;
+    bottom:25px;
 
-        /* NOTICE */
+    padding-top:15px;
 
-        .demo-notice {
-            background: #fff7ed;
-            border: 1px solid #fed7aa;
-            color: #9a3412;
-            padding: 14px 18px;
-            border-radius: 9px;
-            margin-bottom: 20px;
-            font-size: 13px;
-        }
+    border-top:
+        1px solid
+        rgba(255,255,255,.06);
+}
 
-        @media(max-width: 1000px) {
 
-            .report-summary {
-                grid-template-columns: repeat(2, 1fr);
-            }
+/* =========================================================
+   MAIN
+========================================================= */
 
-            .clinical-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+.main-content{
+    margin-left:250px;
 
-        }
+    width:
+        calc(100% - 250px);
 
-        @media(max-width: 650px) {
+    padding:
+        30px
+        38px
+        60px;
+}
 
-            .page-heading {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
+.reports-page{
+    max-width:1500px;
+    margin:auto;
+}
 
-            .report-summary {
-                grid-template-columns: 1fr;
-            }
 
-            .clinical-grid {
-                grid-template-columns: 1fr;
-            }
+/* =========================================================
+   HEADER
+========================================================= */
 
-        }
+.page-heading{
+    display:flex;
 
-    </style>
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:26px;
+}
+
+.page-heading h1{
+    color:var(--text);
+
+    font-size:30px;
+
+    letter-spacing:-.5px;
+}
+
+.page-heading p{
+    color:var(--muted);
+
+    margin-top:7px;
+
+    font-size:13px;
+}
+
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.report-actions{
+    display:flex;
+    gap:10px;
+}
+
+.report-btn{
+    border:none;
+
+    padding:
+        12px
+        17px;
+
+    border-radius:11px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+    transition:.25s;
+}
+
+.generate-btn{
+    color:#03121b;
+
+    background:
+        linear-gradient(
+            135deg,
+            #54e3ff,
+            #00a9d8
+        );
+
+    box-shadow:
+        0 8px 30px
+        rgba(0,183,230,.20);
+}
+
+.print-btn{
+    color:#bfeeff;
+
+    background:
+        rgba(66,217,255,.07);
+
+    border:
+        1px solid
+        rgba(66,217,255,.15);
+}
+
+.report-btn:hover{
+    transform:translateY(-2px);
+}
+
+.generate-btn:hover{
+    box-shadow:
+        0 12px 35px
+        rgba(0,183,230,.32);
+}
+
+.print-btn:hover{
+    background:
+        rgba(66,217,255,.12);
+}
+
+
+/* =========================================================
+   DEMO NOTICE
+========================================================= */
+
+.demo-notice{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+
+    padding:16px 19px;
+
+    margin-bottom:20px;
+
+    border-radius:14px;
+
+    background:
+        rgba(255,200,87,.055);
+
+    border:
+        1px solid
+        rgba(255,200,87,.13);
+
+    color:#c8b27c;
+
+    font-size:12px;
+
+    line-height:1.6;
+}
+
+.demo-notice strong{
+    color:#ffd36e;
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+.filter-panel{
+    display:flex;
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    padding:18px;
+
+    margin-bottom:22px;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16,35,58,.82),
+            rgba(8,23,39,.88)
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    box-shadow:var(--shadow);
+
+    backdrop-filter:blur(15px);
+}
+
+.search-box{
+    flex:1;
+    min-width:250px;
+    position:relative;
+}
+
+.search-box input,
+.filter-panel select{
+    width:100%;
+
+    height:44px;
+
+    padding:
+        0
+        13px;
+
+    color:#eefaff;
+
+    background:
+        rgba(3,14,26,.65);
+
+    border:
+        1px solid
+        rgba(125,180,210,.14);
+
+    border-radius:10px;
+
+    outline:none;
+
+    transition:.25s;
+}
+
+.filter-panel select{
+    width:190px;
+}
+
+.search-box input::placeholder{
+    color:#60778a;
+}
+
+.search-box input:focus,
+.filter-panel select:focus{
+    border-color:var(--cyan);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(66,217,255,.07);
+}
+
+.filter-panel select option{
+    background:#0b1c2d;
+    color:white;
+}
+
+
+/* =========================================================
+   REPORT CARD
+========================================================= */
+
+.report-card{
+    overflow:hidden;
+
+    margin-bottom:22px;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(16,35,58,.86),
+            rgba(8,23,39,.92)
+        );
+
+    border:
+        1px solid
+        var(--border);
+
+    box-shadow:var(--shadow);
+
+    backdrop-filter:blur(15px);
+
+    transition:
+        transform .3s,
+        border-color .3s,
+        box-shadow .3s;
+
+    animation:
+        reportAppear .55s ease both;
+}
+
+.report-card:hover{
+    transform:translateY(-3px);
+
+    border-color:
+        rgba(66,217,255,.25);
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.38);
+}
+
+@keyframes reportAppear{
+
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   REPORT HEADER
+========================================================= */
+
+.report-header{
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+
+    padding:21px;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.055);
+}
+
+.patient-info{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.patient-avatar{
+    width:52px;
+    height:52px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:15px;
+
+    color:var(--cyan);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(66,217,255,.14),
+            rgba(66,217,255,.04)
+        );
+
+    border:
+        1px solid
+        rgba(66,217,255,.16);
+
+    font-size:16px;
+    font-weight:bold;
+
+    box-shadow:
+        0 0 20px
+        rgba(66,217,255,.06);
+}
+
+.patient-info h2{
+    color:#effaff;
+
+    font-size:17px;
+
+    margin:0;
+}
+
+.patient-info p{
+    color:var(--muted);
+
+    margin-top:5px;
+
+    font-size:11px;
+}
+
+.report-date{
+    color:#70879a;
+
+    font-size:11px;
+
+    padding:
+        7px
+        10px;
+
+    border-radius:20px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.05);
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.report-summary{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:13px;
+
+    padding:20px;
+}
+
+.summary-box{
+    position:relative;
+
+    overflow:hidden;
+
+    padding:17px;
+
+    border-radius:14px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid
+        rgba(255,255,255,.055);
+}
+
+.summary-box:after{
+    content:"";
+
+    position:absolute;
+
+    right:-25px;
+    bottom:-35px;
+
+    width:80px;
+    height:80px;
+
+    border-radius:50%;
+
+    background:
+        rgba(66,217,255,.04);
+}
+
+.summary-box span{
+    display:block;
+
+    color:#71899d;
+
+    font-size:10px;
+
+    margin-bottom:8px;
+
+    text-transform:uppercase;
+
+    letter-spacing:.7px;
+}
+
+.summary-box strong{
+    font-size:22px;
+
+    color:#edf8ff;
+}
+
+.risk-high{
+    color:var(--red)!important;
+
+    text-shadow:
+        0 0 18px
+        rgba(255,100,124,.22);
+}
+
+.risk-medium{
+    color:var(--yellow)!important;
+
+    text-shadow:
+        0 0 18px
+        rgba(255,200,87,.18);
+}
+
+.risk-low{
+    color:var(--green)!important;
+
+    text-shadow:
+        0 0 18px
+        rgba(53,224,161,.18);
+}
+
+
+/* =========================================================
+   RISK BAR
+========================================================= */
+
+.report-card[data-risk="high"]
+.summary-box:first-child:before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:0;
+
+    height:2px;
+    width:82%;
+
+    background:var(--red);
+
+    box-shadow:
+        0 0 10px
+        rgba(255,100,124,.5);
+}
+
+.report-card[data-risk="medium"]
+.summary-box:first-child:before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:0;
+
+    height:2px;
+    width:54%;
+
+    background:var(--yellow);
+
+    box-shadow:
+        0 0 10px
+        rgba(255,200,87,.5);
+}
+
+
+/* =========================================================
+   REPORT BODY
+========================================================= */
+
+.report-body{
+    padding:20px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.045);
+}
+
+.report-body h3{
+    color:#dcecf6;
+
+    font-size:14px;
+
+    margin-bottom:14px;
+}
+
+.clinical-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:11px;
+}
+
+.clinical-item{
+    padding:13px;
+
+    border-radius:11px;
+
+    background:
+        rgba(3,14,26,.40);
+
+    border:
+        1px solid
+        rgba(125,180,210,.08);
+
+    transition:.25s;
+}
+
+.clinical-item:hover{
+    border-color:
+        rgba(66,217,255,.18);
+
+    background:
+        rgba(66,217,255,.035);
+}
+
+.clinical-item span{
+    display:block;
+
+    color:#647d91;
+
+    font-size:10px;
+}
+
+.clinical-item strong{
+    display:block;
+
+    margin-top:5px;
+
+    color:#dcebf4;
+
+    font-size:13px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.report-footer{
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+
+    padding:
+        15px
+        20px;
+
+    background:
+        rgba(0,0,0,.12);
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.045);
+}
+
+.model-info{
+    color:#637c90;
+
+    font-size:10px;
+}
+
+.view-report{
+    border:none;
+
+    color:#03121b;
+
+    background:
+        linear-gradient(
+            135deg,
+            #54e3ff,
+            #00a9d8
+        );
+
+    padding:
+        9px
+        15px;
+
+    border-radius:9px;
+
+    cursor:pointer;
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    transition:.25s;
+}
+
+.view-report:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 7px 20px
+        rgba(0,183,230,.22);
+}
+
+
+/* =========================================================
+   EMPTY RESULT
+========================================================= */
+
+.no-results{
+    display:none;
+
+    padding:45px 20px;
+
+    text-align:center;
+
+    border-radius:18px;
+
+    color:var(--muted);
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px dashed
+        rgba(255,255,255,.09);
+}
+
+.no-results-icon{
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.no-results strong{
+    display:block;
+    color:#dcebf4;
+    margin-bottom:5px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.report-modal{
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:
+        rgba(1,7,14,.75);
+
+    backdrop-filter:blur(8px);
+
+    z-index:500;
+}
+
+.modal-content{
+    width:100%;
+    max-width:520px;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #10263d,
+            #071522
+        );
+
+    border:
+        1px solid
+        rgba(66,217,255,.18);
+
+    box-shadow:
+        0 30px 90px
+        rgba(0,0,0,.5);
+
+    animation:
+        modalIn .3s ease;
+}
+
+@keyframes modalIn{
+
+    from{
+        opacity:0;
+        transform:scale(.95);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:18px;
+}
+
+.modal-header h2{
+    font-size:19px;
+}
+
+.close-modal{
+    border:none;
+
+    width:34px;
+    height:34px;
+
+    border-radius:9px;
+
+    color:#9eb5c7;
+
+    background:
+        rgba(255,255,255,.05);
+
+    cursor:pointer;
+}
+
+.modal-body{
+    color:#9db1c0;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+.modal-patient{
+    color:var(--cyan);
+
+    font-weight:bold;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .report-summary{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .clinical-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:850px){
+
+    .sidebar{
+        width:75px;
+        padding:20px 10px;
+    }
+
+    .logo{
+        justify-content:center;
+        padding:
+            5px
+            0
+            25px;
+    }
+
+    .logo > div:last-child{
+        display:none;
+    }
+
+    .sidebar nav a{
+        justify-content:center;
+        padding:13px;
+    }
+
+    .sidebar nav a{
+        font-size:0;
+    }
+
+    .sidebar nav a span{
+        font-size:16px;
+        margin:0;
+    }
+
+    .sidebar-bottom a{
+        justify-content:center;
+        font-size:0;
+    }
+
+    .sidebar-bottom a span{
+        font-size:16px;
+    }
+
+    .main-content{
+        margin-left:75px;
+
+        width:
+            calc(100% - 75px);
+
+        padding:25px;
+    }
+
+}
+
+@media(max-width:650px){
+
+    .main-content{
+        padding:18px;
+    }
+
+    .page-heading{
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+    }
+
+    .page-heading h1{
+        font-size:24px;
+    }
+
+    .report-actions{
+        width:100%;
+    }
+
+    .report-btn{
+        flex:1;
+    }
+
+    .report-header{
+        align-items:flex-start;
+        gap:12px;
+    }
+
+    .report-date{
+        white-space:nowrap;
+    }
+
+    .report-summary{
+        grid-template-columns:1fr;
+    }
+
+    .clinical-grid{
+        grid-template-columns:1fr;
+    }
+
+    .filter-panel{
+        flex-direction:column;
+    }
+
+    .filter-panel select{
+        width:100%;
+    }
+
+    .report-footer{
+        gap:12px;
+    }
+
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print{
+
+    body{
+        background:white;
+        color:#111;
+    }
+
+    .sidebar,
+    .report-actions,
+    .filter-panel,
+    .demo-notice,
+    .view-report{
+        display:none!important;
+    }
+
+    .main-content{
+        margin:0;
+        width:100%;
+        padding:0;
+    }
+
+    .report-card{
+        color:#111;
+        background:white;
+        border:1px solid #ddd;
+        box-shadow:none;
+        page-break-inside:avoid;
+    }
+
+    .report-card:hover{
+        transform:none;
+    }
+
+    .patient-info h2,
+    .summary-box strong,
+    .clinical-item strong{
+        color:#111;
+    }
+
+    .report-footer{
+        background:#f5f5f5;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -303,9 +1215,14 @@
 <body>
 
 
-<!-- SIDEBAR -->
+<div class="dashboard">
 
-<div class="sidebar">
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
 
     <div class="logo">
 
@@ -314,8 +1231,15 @@
         </div>
 
         <div>
-            <strong>SAE Predict</strong>
-            <small>Clinical AI System</small>
+
+            <strong>
+                SAE Predict
+            </strong>
+
+            <small>
+                Clinical Intelligence
+            </small>
+
         </div>
 
     </div>
@@ -324,33 +1248,49 @@
     <nav>
 
         <a href="dashboard.html">
-            <span>📊</span>
+
+            <span>▦</span>
+
             Dashboard
+
         </a>
+
 
         <a href="patients.html">
+
             <span>👥</span>
+
             Patients
+
         </a>
+
 
         <a href="prediction.html">
-            <span>🧠</span>
+
+            <span>⚕</span>
+
             Prediction
+
         </a>
+
 
         <a href="analytics.html">
-            <span>📈</span>
+
+            <span>📊</span>
+
             Analytics
+
         </a>
 
-        <a href="reports.html" class="active">
-            <span>📄</span>
+
+        <a
+            href="reports.html"
+            class="active">
+
+            <span>📋</span>
+
             Reports
-        </a>
 
-        <a href="#">
-            <span>⚙️</span>
-            Settings
         </a>
 
     </nav>
@@ -358,727 +1298,940 @@
 
     <div class="sidebar-bottom">
 
-        <a href="index.html">
-            <span>🚪</span>
-            Logout
+        <a href="analytics.html">
+
+            <span>⚙</span>
+
+            Settings
+
         </a>
+
+
+        <a href="index.html">
+
+            <span>↪</span>
+
+            Logout
+
+        </a>
+
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main-content">
+
+<div class="reports-page">
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<div class="page-heading">
+
+    <div>
+
+        <h1>
+            Clinical Reports
+        </h1>
+
+        <p>
+            SAE prediction reports and patient monitoring history.
+        </p>
+
+    </div>
+
+
+    <div class="report-actions">
+
+        <button
+            class="report-btn generate-btn"
+            onclick="generateReport()">
+
+            ＋ Generate Report
+
+        </button>
+
+
+        <button
+            class="report-btn print-btn"
+            onclick="printReports()">
+
+            🖨 Print
+
+        </button>
+
     </div>
 
 </div>
 
 
-<!-- MAIN CONTENT -->
 
-<div class="main-content">
+<!-- =====================================================
+     NOTICE
+===================================================== -->
 
-    <div class="reports-page">
+<div class="demo-notice">
+
+    <span>⚠️</span>
+
+    <div>
+
+        <strong>Demo Mode</strong>
+
+        — Patient records and prediction results shown here
+        are sample frontend data. They are not medical diagnoses
+        and are not connected to a validated clinical prediction model.
+
+    </div>
+
+</div>
 
 
-        <!-- HEADER -->
 
-        <div class="page-heading">
+<!-- =====================================================
+     FILTER
+===================================================== -->
+
+<div class="filter-panel">
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchReport"
+            placeholder="🔍  Search patient name or ID..."
+            onkeyup="filterReports()">
+
+    </div>
+
+
+    <select
+        id="riskFilter"
+        onchange="filterReports()">
+
+        <option value="all">
+            All Risk Levels
+        </option>
+
+        <option value="high">
+            High Risk
+        </option>
+
+        <option value="medium">
+            Medium Risk
+        </option>
+
+        <option value="low">
+            Low Risk
+        </option>
+
+    </select>
+
+</div>
+
+
+
+<!-- =====================================================
+     NO RESULTS
+===================================================== -->
+
+<div
+    id="noResults"
+    class="no-results">
+
+    <div class="no-results-icon">
+        🔎
+    </div>
+
+    <strong>
+        No reports found
+    </strong>
+
+    <span>
+        Try changing your search or risk filter.
+    </span>
+
+</div>
+
+
+
+<!-- =====================================================
+     REPORT 1
+===================================================== -->
+
+<div
+    class="report-card"
+    data-risk="high">
+
+    <div class="report-header">
+
+        <div class="patient-info">
+
+            <div class="patient-avatar">
+                RK
+            </div>
 
             <div>
 
-                <h1>Clinical Reports</h1>
+                <h2>
+                    Ramesh Kumar
+                </h2>
 
                 <p>
-                    SAE prediction reports and patient monitoring history.
+                    Patient ID: PT-1024
+                    &nbsp; | &nbsp;
+                    Age: 64
+                    &nbsp; | &nbsp;
+                    Male
                 </p>
 
             </div>
 
-
-            <div class="report-actions">
-
-                <button
-                    class="report-btn generate-btn"
-                    onclick="generateReport()">
-
-                    + Generate Report
-
-                </button>
+        </div>
 
 
-                <button
-                    class="report-btn print-btn"
-                    onclick="printReports()">
+        <div class="report-date">
+            01 Oct 2026
+        </div>
 
-                    🖨 Print
+    </div>
 
-                </button>
+
+    <div class="report-summary">
+
+        <div class="summary-box">
+
+            <span>
+                SAE Risk
+            </span>
+
+            <strong class="risk-high">
+                82%
+            </strong>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <span>
+                Risk Level
+            </span>
+
+            <strong class="risk-high">
+                HIGH
+            </strong>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <span>
+                GCS
+            </span>
+
+            <strong>
+                11
+            </strong>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <span>
+                Lactate
+            </span>
+
+            <strong>
+                3.4
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="report-body">
+
+        <h3>
+            Clinical Parameters
+        </h3>
+
+
+        <div class="clinical-grid">
+
+            <div class="clinical-item">
+
+                <span>
+                    Heart Rate
+                </span>
+
+                <strong>
+                    112 bpm
+                </strong>
+
+            </div>
+
+
+            <div class="clinical-item">
+
+                <span>
+                    Systolic BP
+                </span>
+
+                <strong>
+                    92 mmHg
+                </strong>
+
+            </div>
+
+
+            <div class="clinical-item">
+
+                <span>
+                    SpO₂
+                </span>
+
+                <strong>
+                    89%
+                </strong>
+
+            </div>
+
+
+            <div class="clinical-item">
+
+                <span>
+                    Respiratory Rate
+                </span>
+
+                <strong>
+                    25 /min
+                </strong>
 
             </div>
 
         </div>
 
+    </div>
 
-        <!-- NOTICE -->
 
-        <div class="demo-notice">
+    <div class="report-footer">
 
-            ⚠️ <strong>Demo Mode:</strong>
-            The patient records and prediction results shown here
-            are sample frontend data. They are not medical diagnoses
-            and are not connected to a validated clinical prediction model.
-
+        <div class="model-info">
+            Prediction generated: 10:42 AM
         </div>
 
+        <button
+            class="view-report"
+            onclick="viewReport('PT-1024')">
 
-        <!-- FILTER -->
+            View Report
 
-        <div class="filter-panel">
-
-
-            <div class="search-box">
-
-                <input
-                    type="text"
-                    id="searchReport"
-                    placeholder="🔍 Search patient or ID..."
-                    onkeyup="filterReports()">
-
-            </div>
-
-
-            <select
-                id="riskFilter"
-                onchange="filterReports()">
-
-                <option value="all">
-                    All Risk Levels
-                </option>
-
-                <option value="high">
-                    High Risk
-                </option>
-
-                <option value="medium">
-                    Medium Risk
-                </option>
-
-                <option value="low">
-                    Low Risk
-                </option>
-
-            </select>
-
-
-        </div>
-
-
-        <!-- REPORT 1 -->
-
-        <div
-            class="report-card"
-            data-risk="high">
-
-
-            <div class="report-header">
-
-
-                <div class="patient-info">
-
-                    <div class="patient-avatar">
-                        RK
-                    </div>
-
-                    <div>
-
-                        <h2>
-                            Ramesh Kumar
-                        </h2>
-
-                        <p>
-                            Patient ID: PT-1024
-                            &nbsp; | &nbsp;
-                            Age: 64
-                            &nbsp; | &nbsp;
-                            Male
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="report-date">
-                    01 Oct 2026
-                </div>
-
-            </div>
-
-
-            <div class="report-summary">
-
-
-                <div class="summary-box">
-
-                    <span>SAE Risk</span>
-
-                    <strong class="risk-high">
-                        82%
-                    </strong>
-
-                </div>
-
-
-                <div class="summary-box">
-
-                    <span>Risk Level</span>
-
-                    <strong class="risk-high">
-                        HIGH
-                    </strong>
-
-                </div>
-
-
-                <div class="summary-box">
-
-                    <span>GCS</span>
-
-                    <strong>
-                        11
-                    </strong>
-
-                </div>
-
-
-                <div class="summary-box">
-
-                    <span>Lactate</span>
-
-                    <strong>
-                        3.4
-                    </strong>
-
-                </div>
-
-
-            </div>
-
-
-            <div class="report-body">
-
-                <h3>
-                    Clinical Parameters
-                </h3>
-
-
-                <div class="clinical-grid">
-
-
-                    <div class="clinical-item">
-
-                        <span>
-                            Heart Rate
-                        </span>
-
-                        <strong>
-                            112 bpm
-                        </strong>
-
-                    </div>
-
-
-                    <div class="clinical-item">
-
-                        <span>
-                            Systolic BP
-                        </span>
-
-                        <strong>
-                            92 mmHg
-                        </strong>
-
-                    </div>
-
-
-                    <div class="clinical-item">
-
-                        <span>
-                            SpO₂
-                        </span>
-
-                        <strong>
-                            89%
-                        </strong>
-
-                    </div>
-
-
-                    <div class="clinical-item">
-
-                        <span>
-                            Respiratory Rate
-                        </span>
-
-                        <strong>
-                            25 /min
-                        </strong>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-            <div class="report-footer">
-
-                <div class="model-info">
-                    Prediction generated: 10:42 AM
-                </div>
-
-                <button
-                    class="view-report"
-                    onclick="viewReport('PT-1024')">
-
-                    View Report
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- REPORT 2 -->
-
-        <div
-            class="report-card"
-            data-risk="medium">
-
-
-            <div class="report-header">
-
-
-                <div class="patient-info">
-
-                    <div class="patient-avatar">
-                        SP
-                    </div>
-
-                    <div>
-
-                        <h2>
-                            Sunita Patil
-                        </h2>
-
-                        <p>
-                            Patient ID: PT-1023
-                            &nbsp; | &nbsp;
-                            Age: 58
-                            &nbsp; | &nbsp;
-                            Female
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="report-date">
-                    01 Oct 2026
-                </div>
-
-            </div>
-
-
-            <div class="report-summary">
-
-
-                <div class="summary-box">
-
-                    <span>SAE Risk</span>
-
-                    <strong class="risk-medium">
-                        54%
-                    </strong>
-
-                </div>
-
-
-                <div class="summary-box">
-
-                    <span>Risk Level</span>
-
-                    <strong class="risk-medium">
-                        MEDIUM
-                    </strong>
-
-                </div>
-
-
-                <div class="summary-box">
-
-                    <span>GCS</span>
-
-                    <strong>
-                        14
-                    </strong>
-
-                </div>
-
-
-                <div class="summary-box">
-
-                    <span>Lactate</span>
-
-                    <strong>
-                        2.1
-                    </strong>
-
-                </div>
-
-
-            </div>
-
-
-            <div class="report-body">
-
-                <h3>
-                    Clinical Parameters
-                </h3>
-
-
-                <div class="clinical-grid">
-
-
-                    <div class="clinical-item">
-
-                        <span>
-                            Heart Rate
-                        </span>
-
-                        <strong>
-                            98 bpm
-                        </strong>
-
-                    </div>
-
-
-                    <div class="clinical-item">
-
-                        <span>
-                            Systolic BP
-                        </span>
-
-                        <strong>
-                            108 mmHg
-                        </strong>
-
-                    </div>
-
-
-                    <div class="clinical-item">
-
-                        <span>
-                            SpO₂
-                        </span>
-
-                        <strong>
-                            94%
-                        </strong>
-
-                    </div>
-
-
-                    <div class="clinical-item">
-
-                        <span>
-                            Respiratory Rate
-                        </span>
-
-                        <strong>
-                            20 /min
-                        </strong>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-            <div class="report-footer">
-
-                <div class="model-info">
-                    Prediction generated: 09:35 AM
-                </div>
-
-                <button
-                    class="view-report"
-                    onclick="viewReport('PT-1023')">
-
-                    View Report
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- REPORT 3 -->
-
-        <div
-            class="report-card"
-            data-risk="high">
-
-
-            <div class="report-header">
-
-
-                <div class="patient-info">
-
-                    <div class="patient-avatar">
-                        AD
-                    </div>
-
-                    <div>
-
-                        <h2>
-                            Arun Deshmukh
-                        </h2>
-
-                        <p>
-                            Patient ID: PT-1022
-                            &nbsp; | &nbsp;
-                            Age: 71
-                            &nbsp; | &nbsp;
-                            Male
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="report-date">
-                    30 Sep 2026
-                </div>
-
-            </div>
-
-
-            <div class="report-summary">
-
-
-                <div class="summary-box">
-
-                    <span>SAE Risk</span>
-
-                    <strong class="risk-high">
-                        76%
-                    </strong>
-
-                </div>
-
-
-                <div class="summary-box">
-
-                    <span>Risk Level</span>
-
-                    <strong class="risk-high">
-                        HIGH
-                    </strong>
-
-                </div>
-
-
-                <div class="summary-box">
-
-                    <span>GCS</span>
-
-                    <strong>
-                        12
-                    </strong>
-
-                </div>
-
-
-                <div class="summary-box">
-
-                    <span>Lactate</span>
-
-                    <strong>
-                        2.8
-                    </strong>
-
-                </div>
-
-
-            </div>
-
-
-            <div class="report-body">
-
-                <h3>
-                    Clinical Parameters
-                </h3>
-
-
-                <div class="clinical-grid">
-
-
-                    <div class="clinical-item">
-
-                        <span>
-                            Heart Rate
-                        </span>
-
-                        <strong>
-                            105 bpm
-                        </strong>
-
-                    </div>
-
-
-                    <div class="clinical-item">
-
-                        <span>
-                            Systolic BP
-                        </span>
-
-                        <strong>
-                            96 mmHg
-                        </strong>
-
-                    </div>
-
-
-                    <div class="clinical-item">
-
-                        <span>
-                            SpO₂
-                        </span>
-
-                        <strong>
-                            91%
-                        </strong>
-
-                    </div>
-
-
-                    <div class="clinical-item">
-
-                        <span>
-                            Respiratory Rate
-                        </span>
-
-                        <strong>
-                            23 /min
-                        </strong>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-            <div class="report-footer">
-
-                <div class="model-info">
-                    Prediction generated: 08:48 AM
-                </div>
-
-                <button
-                    class="view-report"
-                    onclick="viewReport('PT-1022')">
-
-                    View Report
-
-                </button>
-
-            </div>
-
-        </div>
-
+        </button>
 
     </div>
 
 </div>
+
+
+
+<!-- =====================================================
+     REPORT 2
+===================================================== -->
+
+<div
+    class="report-card"
+    data-risk="medium">
+
+    <div class="report-header">
+
+        <div class="patient-info">
+
+            <div class="patient-avatar">
+                SP
+            </div>
+
+            <div>
+
+                <h2>
+                    Sunita Patil
+                </h2>
+
+                <p>
+                    Patient ID: PT-1023
+                    &nbsp; | &nbsp;
+                    Age: 58
+                    &nbsp; | &nbsp;
+                    Female
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="report-date">
+            01 Oct 2026
+        </div>
+
+    </div>
+
+
+    <div class="report-summary">
+
+        <div class="summary-box">
+
+            <span>
+                SAE Risk
+            </span>
+
+            <strong class="risk-medium">
+                54%
+            </strong>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <span>
+                Risk Level
+            </span>
+
+            <strong class="risk-medium">
+                MEDIUM
+            </strong>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <span>
+                GCS
+            </span>
+
+            <strong>
+                14
+            </strong>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <span>
+                Lactate
+            </span>
+
+            <strong>
+                2.1
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="report-body">
+
+        <h3>
+            Clinical Parameters
+        </h3>
+
+
+        <div class="clinical-grid">
+
+            <div class="clinical-item">
+
+                <span>
+                    Heart Rate
+                </span>
+
+                <strong>
+                    98 bpm
+                </strong>
+
+            </div>
+
+
+            <div class="clinical-item">
+
+                <span>
+                    Systolic BP
+                </span>
+
+                <strong>
+                    108 mmHg
+                </strong>
+
+            </div>
+
+
+            <div class="clinical-item">
+
+                <span>
+                    SpO₂
+                </span>
+
+                <strong>
+                    94%
+                </strong>
+
+            </div>
+
+
+            <div class="clinical-item">
+
+                <span>
+                    Respiratory Rate
+                </span>
+
+                <strong>
+                    20 /min
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="report-footer">
+
+        <div class="model-info">
+            Prediction generated: 09:35 AM
+        </div>
+
+        <button
+            class="view-report"
+            onclick="viewReport('PT-1023')">
+
+            View Report
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     REPORT 3
+===================================================== -->
+
+<div
+    class="report-card"
+    data-risk="high">
+
+    <div class="report-header">
+
+        <div class="patient-info">
+
+            <div class="patient-avatar">
+                AD
+            </div>
+
+            <div>
+
+                <h2>
+                    Arun Deshmukh
+                </h2>
+
+                <p>
+                    Patient ID: PT-1022
+                    &nbsp; | &nbsp;
+                    Age: 71
+                    &nbsp; | &nbsp;
+                    Male
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="report-date">
+            30 Sep 2026
+        </div>
+
+    </div>
+
+
+    <div class="report-summary">
+
+        <div class="summary-box">
+
+            <span>
+                SAE Risk
+            </span>
+
+            <strong class="risk-high">
+                76%
+            </strong>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <span>
+                Risk Level
+            </span>
+
+            <strong class="risk-high">
+                HIGH
+            </strong>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <span>
+                GCS
+            </span>
+
+            <strong>
+                12
+            </strong>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <span>
+                Lactate
+            </span>
+
+            <strong>
+                2.8
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="report-body">
+
+        <h3>
+            Clinical Parameters
+        </h3>
+
+
+        <div class="clinical-grid">
+
+            <div class="clinical-item">
+
+                <span>
+                    Heart Rate
+                </span>
+
+                <strong>
+                    105 bpm
+                </strong>
+
+            </div>
+
+
+            <div class="clinical-item">
+
+                <span>
+                    Systolic BP
+                </span>
+
+                <strong>
+                    96 mmHg
+                </strong>
+
+            </div>
+
+
+            <div class="clinical-item">
+
+                <span>
+                    SpO₂
+                </span>
+
+                <strong>
+                    91%
+                </strong>
+
+            </div>
+
+
+            <div class="clinical-item">
+
+                <span>
+                    Respiratory Rate
+                </span>
+
+                <strong>
+                    23 /min
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="report-footer">
+
+        <div class="model-info">
+            Prediction generated: 08:48 AM
+        </div>
+
+        <button
+            class="view-report"
+            onclick="viewReport('PT-1022')">
+
+            View Report
+
+        </button>
+
+    </div>
+
+</div>
+
+
+</div>
+
+</main>
+
+</div>
+
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+    id="reportModal"
+    class="report-modal"
+    onclick="closeModalOutside(event)">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>
+                Clinical Report
+            </h2>
+
+            <button
+                class="close-modal"
+                onclick="closeReportModal()">
+
+                ✕
+
+            </button>
+
+        </div>
+
+
+        <div class="modal-body">
+
+            <p>
+                Patient:
+                <span
+                    id="modalPatient"
+                    class="modal-patient">
+                </span>
+            </p>
+
+            <br>
+
+            <p>
+                Detailed report generation and
+                backend-connected report history
+                will be implemented in the next stage.
+            </p>
+
+            <br>
+
+            <p>
+                <strong style="color:#ffc857;">
+                    Demo Notice:
+                </strong>
+
+                This page is currently using
+                demonstration data and should not
+                be interpreted as a clinical diagnosis.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 
 <script>
 
 
-/* FILTER REPORTS */
+/* =========================================================
+   FILTER
+========================================================= */
 
-function filterReports() {
+function filterReports(){
 
     const search =
-        document.getElementById("searchReport")
+        document
+        .getElementById("searchReport")
         .value
-        .toLowerCase();
+        .toLowerCase()
+        .trim();
+
 
     const risk =
-        document.getElementById("riskFilter")
+        document
+        .getElementById("riskFilter")
         .value;
 
 
     const reports =
-        document.querySelectorAll(".report-card");
+        document
+        .querySelectorAll(".report-card");
 
 
-    reports.forEach(function(report) {
+    let visibleCount = 0;
+
+
+    reports.forEach(function(report){
 
         const text =
-            report.innerText.toLowerCase();
+            report.innerText
+            .toLowerCase();
+
 
         const reportRisk =
-            report.getAttribute("data-risk");
+            report.getAttribute(
+                "data-risk"
+            );
 
 
         const searchMatch =
             text.includes(search);
+
 
         const riskMatch =
             risk === "all" ||
             reportRisk === risk;
 
 
-        if (
+        if(
             searchMatch &&
             riskMatch
-        ) {
+        ){
 
             report.style.display = "";
 
-        } else {
+            visibleCount++;
 
-            report.style.display = "none";
+        }
+
+        else{
+
+            report.style.display =
+                "none";
 
         }
 
     });
 
+
+    const noResults =
+        document.getElementById(
+            "noResults"
+        );
+
+
+    if(visibleCount === 0){
+
+        noResults.style.display =
+            "block";
+
+    }
+
+    else{
+
+        noResults.style.display =
+            "none";
+
+    }
+
 }
 
 
-/* VIEW REPORT */
+/* =========================================================
+   VIEW REPORT
+========================================================= */
 
-function viewReport(patientId) {
+function viewReport(patientId){
 
-    alert(
-        "Opening clinical report for " +
-        patientId +
-        ".\n\n" +
-        "This is currently a frontend demonstration."
-    );
+    document.getElementById(
+        "modalPatient"
+    ).innerText = patientId;
+
+
+    document.getElementById(
+        "reportModal"
+    ).style.display = "flex";
 
 }
 
 
-/* GENERATE REPORT */
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
 
-function generateReport() {
+function closeReportModal(){
+
+    document.getElementById(
+        "reportModal"
+    ).style.display = "none";
+
+}
+
+
+function closeModalOutside(event){
+
+    if(
+        event.target.id ===
+        "reportModal"
+    ){
+
+        closeReportModal();
+
+    }
+
+}
+
+
+/* =========================================================
+   GENERATE REPORT
+========================================================= */
+
+function generateReport(){
 
     alert(
         "Report generation started.\n\n" +
@@ -1089,13 +2242,33 @@ function generateReport() {
 }
 
 
-/* PRINT */
+/* =========================================================
+   PRINT
+========================================================= */
 
-function printReports() {
+function printReports(){
 
     window.print();
 
 }
+
+
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Escape"){
+
+            closeReportModal();
+
+        }
+
+    }
+);
 
 </script>
 

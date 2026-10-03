@@ -1,20 +1,754 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
 
-```
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>SAE Prediction | SAE Predict</title>
 
-<link rel="stylesheet"
-      href="css/style.css">
-```
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+:root{
+    --bg:#07111f;
+    --bg2:#0b1728;
+    --card:rgba(15,31,52,.78);
+    --card2:rgba(18,39,63,.82);
+    --border:rgba(83,211,255,.15);
+    --cyan:#42d9ff;
+    --cyan2:#00a9d8;
+    --text:#edf8ff;
+    --muted:#8fa8bd;
+    --green:#35e0a1;
+    --yellow:#ffc857;
+    --red:#ff647c;
+    --shadow:0 20px 60px rgba(0,0,0,.30);
+}
+
+body{
+    min-height:100vh;
+    color:var(--text);
+    background:
+        radial-gradient(circle at 85% 10%,rgba(0,201,255,.12),transparent 25%),
+        radial-gradient(circle at 10% 80%,rgba(0,150,255,.08),transparent 25%),
+        linear-gradient(135deg,#050d18,#091727 55%,#06111e);
+}
+
+/* ================= LAYOUT ================= */
+
+.dashboard{
+    display:flex;
+    min-height:100vh;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    width:250px;
+    min-height:100vh;
+    position:fixed;
+    left:0;
+    top:0;
+    padding:25px 16px;
+    background:rgba(5,15,28,.94);
+    border-right:1px solid rgba(79,211,255,.12);
+    backdrop-filter:blur(20px);
+    z-index:20;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:8px 10px 30px;
+}
+
+.logo-icon{
+    width:46px;
+    height:46px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:14px;
+    background:linear-gradient(135deg,#123d59,#087ca4);
+    box-shadow:0 0 25px rgba(66,217,255,.20);
+    font-size:22px;
+}
+
+.logo h2{
+    font-size:19px;
+    letter-spacing:.3px;
+}
+
+.logo span{
+    color:var(--muted);
+    font-size:10px;
+    display:block;
+    margin-top:3px;
+}
+
+.sidebar nav{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.sidebar nav a,
+.sidebar-bottom a{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:13px 14px;
+    border-radius:12px;
+    color:#91aabd;
+    text-decoration:none;
+    font-size:14px;
+    transition:.25s;
+}
+
+.sidebar nav a span{
+    width:22px;
+    text-align:center;
+}
+
+.sidebar nav a:hover,
+.sidebar-bottom a:hover{
+    color:white;
+    background:rgba(66,217,255,.08);
+    transform:translateX(3px);
+}
+
+.sidebar nav a.active{
+    color:white;
+    background:linear-gradient(
+        90deg,
+        rgba(0,190,235,.22),
+        rgba(0,190,235,.06)
+    );
+    border:1px solid rgba(66,217,255,.18);
+    box-shadow:0 0 25px rgba(0,190,235,.07);
+}
+
+.sidebar-bottom{
+    position:absolute;
+    bottom:25px;
+    left:16px;
+    right:16px;
+    padding-top:15px;
+    border-top:1px solid rgba(255,255,255,.06);
+}
+
+/* ================= MAIN ================= */
+
+.main-content{
+    margin-left:250px;
+    width:calc(100% - 250px);
+    padding:30px 38px 60px;
+}
+
+/* ================= TOPBAR ================= */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.topbar h1{
+    font-size:30px;
+    letter-spacing:-.5px;
+}
+
+.topbar p{
+    color:var(--muted);
+    margin-top:7px;
+    font-size:14px;
+}
+
+.doctor-profile{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.notification{
+    width:42px;
+    height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:12px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    cursor:pointer;
+    transition:.25s;
+}
+
+.notification:hover{
+    background:rgba(66,217,255,.1);
+    transform:translateY(-2px);
+}
+
+.avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#19bce8,#1169a0);
+    font-weight:bold;
+    box-shadow:0 0 20px rgba(25,188,232,.25);
+}
+
+.doctor-profile strong{
+    display:block;
+    font-size:13px;
+}
+
+.doctor-profile small{
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* ================= INFO BANNER ================= */
+
+.prediction-info{
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:21px 24px;
+    margin-bottom:22px;
+    border-radius:18px;
+    background:
+        linear-gradient(
+            120deg,
+            rgba(11,79,111,.38),
+            rgba(7,28,47,.72)
+        );
+    border:1px solid rgba(66,217,255,.16);
+    box-shadow:var(--shadow);
+}
+
+.prediction-info:after{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    right:-100px;
+    top:-130px;
+    background:rgba(66,217,255,.12);
+    border-radius:50%;
+    filter:blur(5px);
+}
+
+.prediction-info-icon{
+    width:52px;
+    height:52px;
+    flex-shrink:0;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(66,217,255,.12);
+    border:1px solid rgba(66,217,255,.2);
+    font-size:25px;
+    animation:floatIcon 3s ease-in-out infinite;
+}
+
+@keyframes floatIcon{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-5px)}
+}
+
+.prediction-info h3{
+    font-size:16px;
+    margin-bottom:5px;
+}
+
+.prediction-info p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* ================= PANELS ================= */
+
+.panel{
+    background:linear-gradient(
+        145deg,
+        rgba(16,35,58,.82),
+        rgba(8,23,39,.88)
+    );
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:22px;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(15px);
+    animation:fadeUp .55s ease both;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.panel-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:23px;
+}
+
+.panel-header h3{
+    font-size:17px;
+}
+
+.panel-header p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px;
+}
+
+/* ================= FORM ================= */
+
+.prediction-form-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:19px;
+}
+
+.form-field{
+    position:relative;
+}
+
+.form-field label{
+    display:block;
+    color:#c8d9e7;
+    font-size:12px;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.form-field input,
+.form-field select{
+    width:100%;
+    height:46px;
+    padding:0 13px;
+    border-radius:11px;
+    border:1px solid rgba(125,180,210,.14);
+    outline:none;
+    background:rgba(3,14,26,.62);
+    color:#eefaff;
+    font-size:13px;
+    transition:.25s;
+}
+
+.form-field input::placeholder{
+    color:#5f7487;
+}
+
+.form-field select{
+    cursor:pointer;
+}
+
+.form-field select option{
+    background:#0b1c2d;
+    color:white;
+}
+
+.form-field input:focus,
+.form-field select:focus{
+    border-color:var(--cyan);
+    box-shadow:
+        0 0 0 3px rgba(66,217,255,.08),
+        0 0 20px rgba(66,217,255,.08);
+    background:rgba(4,22,38,.9);
+}
+
+.field-help{
+    display:block;
+    color:#668094;
+    font-size:10px;
+    margin-top:6px;
+}
+
+/* ================= SECTION BADGE ================= */
+
+.panel:nth-of-type(3):before{
+    content:"LIVE CLINICAL INPUT";
+    display:inline-block;
+    color:var(--cyan);
+    font-size:9px;
+    font-weight:bold;
+    letter-spacing:1.3px;
+    padding:5px 9px;
+    border-radius:20px;
+    background:rgba(66,217,255,.07);
+    border:1px solid rgba(66,217,255,.12);
+    margin-bottom:12px;
+}
+
+/* ================= ACTIONS ================= */
+
+.prediction-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+    margin:25px 0;
+}
+
+.reset-btn,
+.predict-btn{
+    border:none;
+    border-radius:12px;
+    padding:14px 21px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.reset-btn{
+    color:#a9bac9;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.reset-btn:hover{
+    color:white;
+    background:rgba(255,255,255,.09);
+}
+
+.predict-btn{
+    color:#03121b;
+    background:linear-gradient(
+        135deg,
+        #54e3ff,
+        #00a9d8
+    );
+    box-shadow:
+        0 8px 30px rgba(0,183,230,.22);
+    position:relative;
+    overflow:hidden;
+}
+
+.predict-btn:before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:70%;
+    height:100%;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.3),
+        transparent
+    );
+    transition:.5s;
+}
+
+.predict-btn:hover:before{
+    left:130%;
+}
+
+.predict-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:
+        0 12px 35px rgba(0,183,230,.32);
+}
+
+.predict-btn:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+    transform:none;
+}
+
+/* ================= LOADING ================= */
+
+#predictionLoading{
+    text-align:center;
+    padding:22px;
+    margin:15px 0;
+    border-radius:15px;
+    color:var(--cyan);
+    background:rgba(66,217,255,.05);
+    border:1px solid rgba(66,217,255,.12);
+}
+
+#predictionLoading p{
+    animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+    50%{opacity:.45}
+}
+
+/* ================= ERROR ================= */
+
+#predictionError{
+    margin:15px 0;
+}
+
+.error-card{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:17px;
+    border-radius:14px;
+    background:rgba(255,70,95,.08);
+    border:1px solid rgba(255,70,95,.2);
+    color:#ffb1bd;
+}
+
+.error-card strong{
+    color:#ff7185;
+}
+
+.error-card p{
+    font-size:12px;
+    margin-top:4px;
+}
+
+/* ================= RESULT ================= */
+
+.prediction-result{
+    position:relative;
+    overflow:hidden;
+    margin-top:30px;
+    padding:28px;
+    border-radius:22px;
+    background:
+        radial-gradient(
+            circle at 90% 0%,
+            rgba(66,217,255,.12),
+            transparent 35%
+        ),
+        linear-gradient(
+            145deg,
+            rgba(13,39,61,.95),
+            rgba(5,19,33,.96)
+        );
+    border:1px solid rgba(66,217,255,.18);
+    box-shadow:0 25px 70px rgba(0,0,0,.35);
+    animation:resultAppear .55s ease;
+}
+
+@keyframes resultAppear{
+    from{
+        opacity:0;
+        transform:scale(.98) translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:scale(1) translateY(0);
+    }
+}
+
+.result-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:25px;
+}
+
+.result-label{
+    font-size:9px;
+    letter-spacing:1.7px;
+    color:var(--cyan);
+    font-weight:bold;
+}
+
+.result-header h2{
+    font-size:22px;
+    margin-top:5px;
+}
+
+.result-icon{
+    width:55px;
+    height:55px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:17px;
+    background:rgba(66,217,255,.08);
+    border:1px solid rgba(66,217,255,.14);
+    font-size:25px;
+}
+
+/* ================= RISK GRID ================= */
+
+.risk-result-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.risk-result-grid > div{
+    padding:22px;
+    border-radius:16px;
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.06);
+}
+
+.risk-result-grid span{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    margin-bottom:10px;
+}
+
+.risk-result-grid strong{
+    display:block;
+    font-size:25px;
+    color:white;
+}
+
+.risk-result-grid small{
+    display:block;
+    color:#657d91;
+    font-size:10px;
+    margin-top:7px;
+}
+
+/* ================= RISK SCORE ================= */
+
+#riskPercentage{
+    color:var(--cyan);
+    text-shadow:0 0 20px rgba(66,217,255,.3);
+}
+
+/* ================= CLINICAL ALERT ================= */
+
+.clinical-alert{
+    margin-top:20px;
+    padding:17px 19px;
+    border-radius:14px;
+    background:rgba(255,200,87,.055);
+    border:1px solid rgba(255,200,87,.13);
+}
+
+.clinical-alert strong{
+    color:#ffd36e;
+    font-size:12px;
+}
+
+.clinical-alert p{
+    color:#9cabb8;
+    font-size:11px;
+    line-height:1.7;
+    margin-top:6px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1100px){
+
+    .prediction-form-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:850px){
+
+    .sidebar{
+        width:75px;
+        padding:20px 10px;
+    }
+
+    .logo{
+        justify-content:center;
+        padding:5px 0 25px;
+    }
+
+    .logo > div:last-child,
+    .sidebar nav a:not(.active)::after,
+    .sidebar-bottom a{
+        display:none;
+    }
+
+    .sidebar nav a{
+        justify-content:center;
+        padding:13px;
+    }
+
+    .sidebar nav a span{
+        margin:0;
+    }
+
+    .main-content{
+        margin-left:75px;
+        width:calc(100% - 75px);
+        padding:25px;
+    }
+
+    .risk-result-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .main-content{
+        padding:18px;
+    }
+
+    .topbar{
+        align-items:flex-start;
+    }
+
+    .topbar h1{
+        font-size:23px;
+    }
+
+    .doctor-profile > div:last-child{
+        display:none;
+    }
+
+    .prediction-info{
+        align-items:flex-start;
+    }
+
+    .prediction-form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .panel{
+        padding:19px;
+    }
+
+    .prediction-actions{
+        flex-direction:column-reverse;
+    }
+
+    .reset-btn,
+    .predict-btn{
+        width:100%;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -22,29 +756,20 @@
 
 <div class="dashboard">
 
-```
 <!-- ================= SIDEBAR ================= -->
 
 <aside class="sidebar">
 
     <div class="logo">
 
-        <div class="logo-icon">
-            🧠
-        </div>
+        <div class="logo-icon">🧠</div>
 
         <div>
-
             <h2>SAE Predict</h2>
-
-            <span>
-                Clinical Intelligence
-            </span>
-
+            <span>Clinical Intelligence</span>
         </div>
 
     </div>
-
 
     <nav>
 
@@ -58,8 +783,7 @@
             Patients
         </a>
 
-        <a href="prediction.html"
-           class="active">
+        <a href="prediction.html" class="active">
             <span>⚕</span>
             Prediction
         </a>
@@ -76,7 +800,6 @@
 
     </nav>
 
-
     <div class="sidebar-bottom">
 
         <a href="analytics.html">
@@ -92,758 +815,620 @@
 </aside>
 
 
-
-<!-- ================= MAIN CONTENT ================= -->
+<!-- ================= MAIN ================= -->
 
 <main class="main-content">
 
+<header class="topbar">
 
-    <!-- HEADER -->
+    <div>
 
-    <header class="topbar">
-
-        <div>
-
-            <h1>
-                SAE Risk Prediction
-            </h1>
-
-            <p>
-                Clinical assessment and
-                Sepsis-Associated Encephalopathy
-                risk analysis
-            </p>
-
-        </div>
-
-
-        <div class="doctor-profile">
-
-            <div class="notification">
-                🔔
-            </div>
-
-            <div class="avatar">
-                DR
-            </div>
-
-            <div>
-
-                <strong>
-                    Dr. Rahul Sharma
-                </strong>
-
-                <small>
-                    Critical Care Specialist
-                </small>
-
-            </div>
-
-        </div>
-
-    </header>
-
-
-
-    <!-- ================= INFO BANNER ================= -->
-
-    <section class="prediction-info">
-
-        <div class="prediction-info-icon">
-            🧠
-        </div>
-
-        <div>
-
-            <h3>
-                AI-Assisted Clinical Assessment
-            </h3>
-
-            <p>
-                Enter the patient's current clinical
-                parameters below to generate an
-                SAE risk assessment.
-            </p>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================= PATIENT INFORMATION ================= -->
-
-    <section class="panel">
-
-        <div class="panel-header">
-
-            <div>
-
-                <h3>
-                    Patient Information
-                </h3>
-
-                <p>
-                    Select an existing patient
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="prediction-form-grid">
-
-
-            <!-- PATIENT -->
-
-            <div class="form-field">
-
-                <label>
-                    Patient ID
-                </label>
-
-                <select id="patientId">
-
-                    <option value="">
-                        Select Patient
-                    </option>
-
-                    <option value="PT-1024">
-                        PT-1024 - Ramesh Kumar
-                    </option>
-
-                    <option value="PT-1023">
-                        PT-1023 - Sunita Patil
-                    </option>
-
-                    <option value="PT-1022">
-                        PT-1022 - Arun Deshmukh
-                    </option>
-
-                    <option value="PT-1021">
-                        PT-1021 - Meena Joshi
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- AGE -->
-
-            <div class="form-field">
-
-                <label>
-                    Age
-                </label>
-
-                <input
-                    type="number"
-                    id="age"
-                    min="0"
-                    placeholder="Patient age"
-                >
-
-            </div>
-
-
-            <!-- GENDER -->
-
-            <div class="form-field">
-
-                <label>
-                    Gender
-                </label>
-
-                <select id="gender">
-
-                    <option value="">
-                        Select Gender
-                    </option>
-
-                    <option value="Male">
-                        Male
-                    </option>
-
-                    <option value="Female">
-                        Female
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- SEPSIS -->
-
-            <div class="form-field">
-
-                <label>
-                    Sepsis Status
-                </label>
-
-                <select id="sepsisStatus">
-
-                    <option value="Active">
-                        Active
-                    </option>
-
-                    <option value="Resolved">
-                        Resolved
-                    </option>
-
-                </select>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================= CLINICAL PARAMETERS ================= -->
-
-    <section class="panel">
-
-        <div class="panel-header">
-
-            <div>
-
-                <h3>
-                    Clinical Parameters
-                </h3>
-
-                <p>
-                    Enter current patient measurements
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <div class="prediction-form-grid">
-
-
-            <!-- GCS -->
-
-            <div class="form-field">
-
-                <label>
-                    Glasgow Coma Scale (GCS)
-                </label>
-
-                <input
-                    type="number"
-                    id="gcs"
-                    min="3"
-                    max="15"
-                    placeholder="3 - 15"
-                >
-
-                <small class="field-help">
-                    Normal range: 13–15
-                </small>
-
-            </div>
-
-
-            <!-- HEART RATE -->
-
-            <div class="form-field">
-
-                <label>
-                    Heart Rate (bpm)
-                </label>
-
-                <input
-                    type="number"
-                    id="heartRate"
-                    placeholder="e.g. 88"
-                >
-
-            </div>
-
-
-            <!-- BLOOD PRESSURE -->
-
-            <div class="form-field">
-
-                <label>
-                    Systolic Blood Pressure
-                    (mmHg)
-                </label>
-
-                <input
-                    type="number"
-                    id="bloodPressure"
-                    placeholder="e.g. 120"
-                >
-
-            </div>
-
-
-            <!-- RESPIRATORY RATE -->
-
-            <div class="form-field">
-
-                <label>
-                    Respiratory Rate
-                    (breaths/min)
-                </label>
-
-                <input
-                    type="number"
-                    id="respiratoryRate"
-                    placeholder="e.g. 18"
-                >
-
-            </div>
-
-
-            <!-- OXYGEN -->
-
-            <div class="form-field">
-
-                <label>
-                    Oxygen Saturation (SpO₂)
-                </label>
-
-                <input
-                    type="number"
-                    id="oxygen"
-                    min="0"
-                    max="100"
-                    placeholder="e.g. 96"
-                >
-
-                <small class="field-help">
-                    Percentage (%)
-                </small>
-
-            </div>
-
-
-            <!-- TEMPERATURE -->
-
-            <div class="form-field">
-
-                <label>
-                    Temperature (°C)
-                </label>
-
-                <input
-                    type="number"
-                    id="temperature"
-                    step="0.1"
-                    placeholder="e.g. 37.2"
-                >
-
-            </div>
-
-
-            <!-- WBC -->
-
-            <div class="form-field">
-
-                <label>
-                    White Blood Cell Count
-                </label>
-
-                <input
-                    type="number"
-                    id="wbc"
-                    step="0.1"
-                    placeholder="×10⁹/L"
-                >
-
-            </div>
-
-
-            <!-- LACTATE -->
-
-            <div class="form-field">
-
-                <label>
-                    Lactate (mmol/L)
-                </label>
-
-                <input
-                    type="number"
-                    id="lactate"
-                    step="0.1"
-                    placeholder="e.g. 2.1"
-                >
-
-            </div>
-
-
-            <!-- CREATININE -->
-
-            <div class="form-field">
-
-                <label>
-                    Creatinine (mg/dL)
-                </label>
-
-                <input
-                    type="number"
-                    id="creatinine"
-                    step="0.1"
-                    placeholder="e.g. 1.2"
-                >
-
-            </div>
-
-
-            <!-- BILIRUBIN -->
-
-            <div class="form-field">
-
-                <label>
-                    Bilirubin (mg/dL)
-                </label>
-
-                <input
-                    type="number"
-                    id="bilirubin"
-                    step="0.1"
-                    placeholder="e.g. 0.8"
-                >
-
-            </div>
-
-
-            <!-- PLATELETS -->
-
-            <div class="form-field">
-
-                <label>
-                    Platelet Count
-                </label>
-
-                <input
-                    type="number"
-                    id="platelets"
-                    placeholder="×10⁹/L"
-                >
-
-            </div>
-
-
-            <!-- CONSCIOUSNESS -->
-
-            <div class="form-field">
-
-                <label>
-                    Sedation / Altered Consciousness
-                </label>
-
-                <select id="consciousness">
-
-                    <option value="No">
-                        No
-                    </option>
-
-                    <option value="Yes">
-                        Yes
-                    </option>
-
-                </select>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ================= BUTTON ================= -->
-
-    <div class="prediction-actions">
-
-        <button
-            type="button"
-            class="reset-btn"
-            onclick="resetPredictionForm()">
-
-            Reset
-
-        </button>
-
-
-        <button
-            type="button"
-            class="predict-btn"
-            id="predictButton"
-            onclick="generatePrediction()">
-
-            🧠 Generate SAE Prediction
-
-        </button>
-
-    </div>
-
-
-
-    <!-- ================= LOADING ================= -->
-
-    <div
-        id="predictionLoading"
-        style="display:none;">
+        <h1>SAE Risk Prediction</h1>
 
         <p>
-            ⏳ Running SAE prediction...
+            Clinical assessment and
+            Sepsis-Associated Encephalopathy
+            risk analysis
         </p>
 
     </div>
 
+    <div class="doctor-profile">
+
+        <div class="notification">🔔</div>
+
+        <div class="avatar">DR</div>
+
+        <div>
+            <strong>Dr. Rahul Sharma</strong>
+            <small>Critical Care Specialist</small>
+        </div>
+
+    </div>
+
+</header>
 
 
-    <!-- ================= ERROR ================= -->
+<!-- ================= INFO ================= -->
 
-    <div
-        id="predictionError"
-        style="display:none;">
+<section class="prediction-info">
+
+    <div class="prediction-info-icon">
+        🧠
+    </div>
+
+    <div>
+
+        <h3>AI-Assisted Clinical Assessment</h3>
+
+        <p>
+            Enter the patient's current clinical
+            parameters to generate an SAE risk assessment.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PATIENT ================= -->
+
+<section class="panel">
+
+    <div class="panel-header">
+
+        <div>
+
+            <h3>Patient Information</h3>
+
+            <p>Select an existing patient and enter demographics</p>
+
+        </div>
 
     </div>
 
 
+    <div class="prediction-form-grid">
 
-    <!-- ================= RESULT ================= -->
+        <div class="form-field">
 
-    <section
-        id="predictionResult"
-        class="prediction-result"
-        style="display:none;">
+            <label>Patient ID</label>
 
+            <select id="patientId">
 
-        <div class="result-header">
+                <option value="">Select Patient</option>
 
-            <div>
+                <option value="PT-1024">
+                    PT-1024 - Ramesh Kumar
+                </option>
 
-                <span class="result-label">
-                    MODEL PREDICTION RESULT
-                </span>
+                <option value="PT-1023">
+                    PT-1023 - Sunita Patil
+                </option>
 
-                <h2>
-                    SAE Risk Assessment
-                </h2>
+                <option value="PT-1022">
+                    PT-1022 - Arun Deshmukh
+                </option>
 
-            </div>
+                <option value="PT-1021">
+                    PT-1021 - Meena Joshi
+                </option>
 
-            <div class="result-icon">
-                🧠
-            </div>
-
-        </div>
-
-
-
-        <div class="risk-result-grid">
-
-
-            <!-- SCORE -->
-
-            <div class="risk-score">
-
-                <span>
-                    Risk Score
-                </span>
-
-                <strong id="riskPercentage">
-                    --
-                </strong>
-
-                <small>
-                    Application model score
-                </small>
-
-            </div>
-
-
-            <!-- LEVEL -->
-
-            <div class="risk-level">
-
-                <span>
-                    Risk Classification
-                </span>
-
-                <strong id="riskLevel">
-                    --
-                </strong>
-
-                <small>
-                    Based on submitted parameters
-                </small>
-
-            </div>
-
-
-            <!-- MODEL -->
-
-            <div class="risk-confidence">
-
-                <span>
-                    Model
-                </span>
-
-                <strong id="modelName">
-                    --
-                </strong>
-
-                <small>
-                    Prediction service
-                </small>
-
-            </div>
+            </select>
 
         </div>
 
 
+        <div class="form-field">
 
-        <div class="clinical-alert">
+            <label>Age</label>
 
-            <strong>
-                ⚠ Clinical Attention
-            </strong>
+            <input
+                type="number"
+                id="age"
+                min="0"
+                placeholder="Patient age">
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>Gender</label>
+
+            <select id="gender">
+
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>Sepsis Status</label>
+
+            <select id="sepsisStatus">
+
+                <option value="Active">Active</option>
+                <option value="Resolved">Resolved</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CLINICAL ================= -->
+
+<section class="panel">
+
+    <div class="panel-header">
+
+        <div>
+
+            <h3>Clinical Parameters</h3>
 
             <p>
-                This result is an application-level
-                model output for development and
-                demonstration. It is not a clinically
-                validated diagnosis and should not
-                replace assessment by qualified
-                healthcare professionals.
+                Enter current patient physiological and laboratory measurements
             </p>
 
         </div>
 
+    </div>
 
-    </section>
+
+    <div class="prediction-form-grid">
+
+        <div class="form-field">
+
+            <label>Glasgow Coma Scale (GCS)</label>
+
+            <input
+                type="number"
+                id="gcs"
+                min="3"
+                max="15"
+                placeholder="3 - 15">
+
+            <small class="field-help">
+                Normal range: 13–15
+            </small>
+
+        </div>
 
 
-</main>
-```
+        <div class="form-field">
+
+            <label>Heart Rate (bpm)</label>
+
+            <input
+                type="number"
+                id="heartRate"
+                placeholder="e.g. 88">
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>Systolic Blood Pressure (mmHg)</label>
+
+            <input
+                type="number"
+                id="bloodPressure"
+                placeholder="e.g. 120">
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>Respiratory Rate (breaths/min)</label>
+
+            <input
+                type="number"
+                id="respiratoryRate"
+                placeholder="e.g. 18">
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>Oxygen Saturation (SpO₂)</label>
+
+            <input
+                type="number"
+                id="oxygen"
+                min="0"
+                max="100"
+                placeholder="e.g. 96">
+
+            <small class="field-help">
+                Percentage (%)
+            </small>
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>Temperature (°C)</label>
+
+            <input
+                type="number"
+                id="temperature"
+                step="0.1"
+                placeholder="e.g. 37.2">
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>White Blood Cell Count</label>
+
+            <input
+                type="number"
+                id="wbc"
+                step="0.1"
+                placeholder="×10⁹/L">
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>Lactate (mmol/L)</label>
+
+            <input
+                type="number"
+                id="lactate"
+                step="0.1"
+                placeholder="e.g. 2.1">
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>Creatinine (mg/dL)</label>
+
+            <input
+                type="number"
+                id="creatinine"
+                step="0.1"
+                placeholder="e.g. 1.2">
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>Bilirubin (mg/dL)</label>
+
+            <input
+                type="number"
+                id="bilirubin"
+                step="0.1"
+                placeholder="e.g. 0.8">
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>Platelet Count</label>
+
+            <input
+                type="number"
+                id="platelets"
+                placeholder="×10⁹/L">
+
+        </div>
+
+
+        <div class="form-field">
+
+            <label>Sedation / Altered Consciousness</label>
+
+            <select id="consciousness">
+
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ACTIONS ================= -->
+
+<div class="prediction-actions">
+
+    <button
+        type="button"
+        class="reset-btn"
+        onclick="resetPredictionForm()">
+
+        ↺ Reset
+
+    </button>
+
+    <button
+        type="button"
+        class="predict-btn"
+        id="predictButton"
+        onclick="generatePrediction()">
+
+        🧠 Generate SAE Prediction
+
+    </button>
 
 </div>
+
+
+<!-- ================= LOADING ================= -->
+
+<div id="predictionLoading" style="display:none;">
+
+    <p>⏳ Running SAE prediction...</p>
+
+</div>
+
+
+<!-- ================= ERROR ================= -->
+
+<div id="predictionError" style="display:none;"></div>
+
+
+<!-- ================= RESULT ================= -->
+
+<section
+    id="predictionResult"
+    class="prediction-result"
+    style="display:none;">
+
+    <div class="result-header">
+
+        <div>
+
+            <span class="result-label">
+                MODEL PREDICTION RESULT
+            </span>
+
+            <h2>SAE Risk Assessment</h2>
+
+        </div>
+
+        <div class="result-icon">
+            🧠
+        </div>
+
+    </div>
+
+
+    <div class="risk-result-grid">
+
+        <div class="risk-score">
+
+            <span>Risk Score</span>
+
+            <strong id="riskPercentage">
+                --
+            </strong>
+
+            <small>
+                Application model score
+            </small>
+
+        </div>
+
+
+        <div class="risk-level">
+
+            <span>Risk Classification</span>
+
+            <strong id="riskLevel">
+                --
+            </strong>
+
+            <small>
+                Based on submitted parameters
+            </small>
+
+        </div>
+
+
+        <div class="risk-confidence">
+
+            <span>Model</span>
+
+            <strong id="modelName">
+                --
+            </strong>
+
+            <small>
+                Prediction service
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <div class="clinical-alert">
+
+        <strong>
+            ⚠ Clinical Attention
+        </strong>
+
+        <p>
+            This result is an application-level model output
+            for development and demonstration. It is not a
+            clinically validated diagnosis and should not
+            replace assessment by qualified healthcare professionals.
+        </p>
+
+    </div>
+
+</section>
+
+</main>
+
+</div>
+
+
 <script>
 
 const API_URL = "http://127.0.0.1:5000";
 
 
-async function generatePrediction() {
+/* ================= GENERATE PREDICTION ================= */
 
-    const patientId = document.getElementById("patientId").value;
-    const age = document.getElementById("age").value;
-    const gender = document.getElementById("gender").value;
-    const sepsisStatus = document.getElementById("sepsisStatus").value;
+async function generatePrediction(){
 
-    const gcs = document.getElementById("gcs").value;
-    const heartRate = document.getElementById("heartRate").value;
-    const bloodPressure = document.getElementById("bloodPressure").value;
-    const respiratoryRate = document.getElementById("respiratoryRate").value;
-    const oxygen = document.getElementById("oxygen").value;
-    const temperature = document.getElementById("temperature").value;
+    const patientId =
+        document.getElementById("patientId").value;
 
-    const wbc = document.getElementById("wbc").value;
-    const lactate = document.getElementById("lactate").value;
-    const creatinine = document.getElementById("creatinine").value;
-    const bilirubin = document.getElementById("bilirubin").value;
-    const platelets = document.getElementById("platelets").value;
+    const age =
+        document.getElementById("age").value;
 
-    const consciousness = document.getElementById("consciousness").value;
+    const gender =
+        document.getElementById("gender").value;
+
+    const sepsisStatus =
+        document.getElementById("sepsisStatus").value;
+
+    const gcs =
+        document.getElementById("gcs").value;
+
+    const heartRate =
+        document.getElementById("heartRate").value;
+
+    const bloodPressure =
+        document.getElementById("bloodPressure").value;
+
+    const respiratoryRate =
+        document.getElementById("respiratoryRate").value;
+
+    const oxygen =
+        document.getElementById("oxygen").value;
+
+    const temperature =
+        document.getElementById("temperature").value;
+
+    const wbc =
+        document.getElementById("wbc").value;
+
+    const lactate =
+        document.getElementById("lactate").value;
+
+    const creatinine =
+        document.getElementById("creatinine").value;
+
+    const bilirubin =
+        document.getElementById("bilirubin").value;
+
+    const platelets =
+        document.getElementById("platelets").value;
+
+    const consciousness =
+        document.getElementById("consciousness").value;
 
 
-    // ================= VALIDATION =================
+    /* ================= VALIDATION ================= */
 
-    if (!patientId) {
+    if(!patientId){
         showError("Please select a patient.");
         return;
     }
 
-    if (!age) {
+    if(!age){
         showError("Please enter patient age.");
         return;
     }
 
-    if (!gender) {
+    if(!gender){
         showError("Please select gender.");
         return;
     }
 
-    if (!gcs) {
+    if(!gcs){
         showError("Please enter GCS.");
         return;
     }
 
-    if (!heartRate) {
+    if(!heartRate){
         showError("Please enter heart rate.");
         return;
     }
 
-    if (!respiratoryRate) {
+    if(!respiratoryRate){
         showError("Please enter respiratory rate.");
         return;
     }
 
-    if (!oxygen) {
+    if(!oxygen){
         showError("Please enter oxygen saturation.");
         return;
     }
 
-    if (!temperature) {
+    if(!temperature){
         showError("Please enter temperature.");
         return;
     }
 
 
-    // ================= REQUEST DATA =================
+    /* ================= DATA ================= */
 
     const patientData = {
 
-        patient_id: patientId,
+        patient_id:patientId,
 
-        age: Number(age),
+        age:Number(age),
 
-        gender: gender,
+        gender:gender,
 
-        sepsis_status: sepsisStatus,
+        sepsis_status:sepsisStatus,
 
-        gcs: Number(gcs),
+        gcs:Number(gcs),
 
-        heart_rate: Number(heartRate),
+        heart_rate:Number(heartRate),
 
-        blood_pressure: Number(bloodPressure || 0),
+        blood_pressure:Number(bloodPressure || 0),
 
-        respiratory_rate: Number(respiratoryRate),
+        respiratory_rate:Number(respiratoryRate),
 
-        spo2: Number(oxygen),
+        spo2:Number(oxygen),
 
-        temperature: Number(temperature),
+        temperature:Number(temperature),
 
-        wbc: Number(wbc || 0),
+        wbc:Number(wbc || 0),
 
-        lactate: Number(lactate || 0),
+        lactate:Number(lactate || 0),
 
-        creatinine: Number(creatinine || 0),
+        creatinine:Number(creatinine || 0),
 
-        bilirubin: Number(bilirubin || 0),
+        bilirubin:Number(bilirubin || 0),
 
-        platelets: Number(platelets || 0),
+        platelets:Number(platelets || 0),
 
-        consciousness: consciousness
+        consciousness:consciousness
+
     };
 
-
-    console.log("Sending patient data:", patientData);
-
-
-    // ================= UI =================
 
     const loading =
         document.getElementById("predictionLoading");
@@ -858,57 +1443,38 @@ async function generatePrediction() {
         document.getElementById("predictButton");
 
 
-    loading.style.display = "block";
+    loading.style.display="block";
 
-    errorBox.style.display = "none";
+    errorBox.style.display="none";
 
-    resultBox.style.display = "none";
+    resultBox.style.display="none";
 
-    button.disabled = true;
+    button.disabled=true;
 
-    button.innerText = "⏳ Generating Prediction...";
+    button.innerText="⏳ Generating Prediction...";
 
 
-    // ================= API CALL =================
-
-    try {
-
-        console.log(
-            "Connecting to:",
-            `${API_URL}/api/predict`
-        );
-
+    try{
 
         const response = await fetch(
             `${API_URL}/api/predict`,
             {
-                method: "POST",
+                method:"POST",
 
-                headers: {
-                    "Content-Type": "application/json"
+                headers:{
+                    "Content-Type":"application/json"
                 },
 
-                body: JSON.stringify(patientData)
+                body:JSON.stringify(patientData)
             }
         );
 
 
-        console.log(
-            "HTTP status:",
-            response.status
-        );
+        const data =
+            await response.json();
 
 
-        const data = await response.json();
-
-
-        console.log(
-            "Backend response:",
-            data
-        );
-
-
-        if (!response.ok) {
+        if(!response.ok){
 
             throw new Error(
                 data.message ||
@@ -918,7 +1484,7 @@ async function generatePrediction() {
         }
 
 
-        if (data.status !== "success") {
+        if(data.status !== "success"){
 
             throw new Error(
                 data.message ||
@@ -928,21 +1494,18 @@ async function generatePrediction() {
         }
 
 
-        // ================= DISPLAY RESULT =================
-
         displayPrediction(
             data.prediction
         );
 
-
     }
-    catch (error) {
+
+    catch(error){
 
         console.error(
             "Prediction error:",
             error
         );
-
 
         showError(
             "Prediction request failed: " +
@@ -950,13 +1513,14 @@ async function generatePrediction() {
         );
 
     }
-    finally {
 
-        loading.style.display = "none";
+    finally{
 
-        button.disabled = false;
+        loading.style.display="none";
 
-        button.innerText =
+        button.disabled=false;
+
+        button.innerText=
             "🧠 Generate SAE Prediction";
 
     }
@@ -964,9 +1528,9 @@ async function generatePrediction() {
 }
 
 
-// ================= DISPLAY RESULT =================
+/* ================= DISPLAY RESULT ================= */
 
-function displayPrediction(prediction) {
+function displayPrediction(prediction){
 
     const resultBox =
         document.getElementById(
@@ -1001,21 +1565,57 @@ function displayPrediction(prediction) {
         prediction.model;
 
 
-    resultBox.style.display =
-        "block";
+    /* Risk color */
+
+    const level =
+        String(prediction.risk_level)
+        .toLowerCase();
+
+    if(level.includes("high")){
+
+        riskLevel.style.color =
+            "#ff647c";
+
+        riskLevel.style.textShadow =
+            "0 0 20px rgba(255,100,124,.3)";
+
+    }
+
+    else if(level.includes("medium")){
+
+        riskLevel.style.color =
+            "#ffc857";
+
+        riskLevel.style.textShadow =
+            "0 0 20px rgba(255,200,87,.25)";
+
+    }
+
+    else{
+
+        riskLevel.style.color =
+            "#35e0a1";
+
+        riskLevel.style.textShadow =
+            "0 0 20px rgba(53,224,161,.25)";
+
+    }
+
+
+    resultBox.style.display="block";
 
 
     resultBox.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
+        behavior:"smooth",
+        block:"start"
     });
 
 }
 
 
-// ================= ERROR =================
+/* ================= ERROR ================= */
 
-function showError(message) {
+function showError(message){
 
     const errorBox =
         document.getElementById(
@@ -1024,62 +1624,71 @@ function showError(message) {
 
 
     errorBox.innerHTML = `
-        <div style="
-            padding:15px;
-            margin:15px 0;
-            border-radius:8px;
-            background:#fff1f2;
-            color:#b42318;
-            border:1px solid #fecdca;
-        ">
-            <strong>⚠ Error</strong>
-            <p>${message}</p>
+
+        <div class="error-card">
+
+            <div style="font-size:20px;">
+                ⚠
+            </div>
+
+            <div>
+
+                <strong>
+                    Prediction Error
+                </strong>
+
+                <p>
+                    ${message}
+                </p>
+
+            </div>
+
         </div>
+
     `;
 
 
-    errorBox.style.display =
-        "block";
+    errorBox.style.display="block";
 
 
     errorBox.scrollIntoView({
-        behavior: "smooth"
+        behavior:"smooth"
     });
 
 }
 
 
-// ================= RESET =================
+/* ================= RESET ================= */
 
-function resetPredictionForm() {
+function resetPredictionForm(){
 
     document.querySelectorAll(
         ".prediction-form-grid input"
     ).forEach(
-        input => input.value = ""
+        input => input.value=""
     );
 
 
     document.querySelectorAll(
         ".prediction-form-grid select"
     ).forEach(
-        select => select.selectedIndex = 0
+        select => select.selectedIndex=0
     );
 
 
     document.getElementById(
         "predictionResult"
-    ).style.display = "none";
+    ).style.display="none";
 
 
     document.getElementById(
         "predictionError"
-    ).style.display = "none";
+    ).style.display="none";
 
 
     document.getElementById(
         "predictionLoading"
-    ).style.display = "none";
+    ).style.display="none";
 
 }
 
@@ -1088,3 +1697,4 @@ function resetPredictionForm() {
 </body>
 
 </html>
+```

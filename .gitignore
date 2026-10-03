@@ -1,25 +1,26 @@
-# Python virtual environment
+# Python
+__pycache__/
+*.pyc
 venv/
 .venv/
 
-# Python cache
-__pycache__/
-*.py[cod]
-
-# Environment files
+# Environment variables
 .env
+.env.*
 
-# VS Code
+# MySQL / secrets
+*.sql
+*.dump
+
+# Excel datasets
+*.xlsx
+*.xls
+*.csv
+
+# IDE
 .vscode/
+.idea/
 
-# Local patient data
-backend/data/patients.json
-
-# Database local files
-*.db
-*.sqlite
-*.sqlite3
-
-# OS files
+# OS
 .DS_Store
 Thumbs.db

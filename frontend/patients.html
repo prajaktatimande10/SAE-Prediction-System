@@ -17,241 +17,669 @@
         }
 
         body {
-            background: #f4f7fb;
-            color: #1e293b;
+            background: #061321;
+            color: #e8f1f8;
+            min-height: 100vh;
         }
 
-        /* SIDEBAR */
+        /* ================= SIDEBAR ================= */
 
         .sidebar {
             position: fixed;
             left: 0;
             top: 0;
-            width: 240px;
+            width: 250px;
             height: 100vh;
-            background: #0f172a;
-            color: white;
-            padding: 25px 15px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #081a2d,
+                    #061321
+                );
+
+            border-right: 1px solid #123550;
+
+            padding: 25px 16px;
+
+            z-index: 1000;
         }
 
         .logo {
-            font-size: 21px;
-            font-weight: bold;
-            padding: 10px 15px 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            padding: 10px;
+            margin-bottom: 35px;
         }
 
-        .logo span {
-            color: #38bdf8;
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: linear-gradient(
+                135deg,
+                #0ea5e9,
+                #06b6d4
+            );
+
+            font-size: 22px;
+
+            box-shadow:
+                0 0 20px rgba(6,182,212,.25);
         }
 
-        .nav {
-            list-style: none;
-        }
-
-        .nav li {
-            margin: 7px 0;
-        }
-
-        .nav a {
+        .logo strong {
             display: block;
-            padding: 13px 15px;
-            color: #cbd5e1;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: 0.2s;
-        }
-
-        .nav a:hover,
-        .nav a.active {
-            background: #1e40af;
+            font-size: 17px;
             color: white;
         }
 
-        /* MAIN */
+        .logo small {
+            display: block;
+            margin-top: 4px;
+            color: #71879a;
+            font-size: 11px;
+        }
+
+        nav a,
+        .logout {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            padding: 13px 15px;
+            margin: 7px 0;
+
+            color: #9eb3c7;
+
+            text-decoration: none;
+
+            border-radius: 10px;
+
+            transition: .25s;
+
+            cursor: pointer;
+        }
+
+        nav a:hover,
+        nav a.active,
+        .logout:hover {
+
+            background: rgba(14,165,233,.12);
+
+            color: #22d3ee;
+
+            transform: translateX(3px);
+        }
+
+        nav a span,
+        .logout span {
+            width: 22px;
+            text-align: center;
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            bottom: 25px;
+            left: 16px;
+            right: 16px;
+        }
+
+        /* ================= MAIN ================= */
 
         .main {
-            margin-left: 240px;
-            padding: 30px;
+            margin-left: 250px;
+            padding: 32px 38px;
         }
+
+        /* ================= TOPBAR ================= */
 
         .topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             margin-bottom: 30px;
         }
 
-        .topbar h1 {
-            font-size: 28px;
+        .page-title h1 {
+            font-size: 29px;
+            font-weight: 700;
+            color: white;
         }
 
-        .subtitle {
-            color: #64748b;
-            margin-top: 5px;
-        }
-
-        /* BUTTON */
-
-        .btn {
-            border: none;
-            border-radius: 8px;
-            padding: 11px 18px;
-            cursor: pointer;
+        .page-title p {
+            margin-top: 7px;
+            color: #71879a;
             font-size: 14px;
-            text-decoration: none;
-            display: inline-block;
         }
 
-        .btn-primary {
-            background: #2563eb;
-            color: white;
-        }
+        .doctor-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
 
-        .btn-primary:hover {
-            background: #1d4ed8;
-        }
+            padding: 10px 16px;
 
-        .btn-danger {
-            background: #dc2626;
-            color: white;
-        }
+            background: rgba(12,35,56,.75);
 
-        .btn-danger:hover {
-            background: #b91c1c;
-        }
+            border: 1px solid #163c59;
 
-        .btn-view {
-            background: #e0f2fe;
-            color: #0369a1;
-        }
-
-        /* CARD */
-
-        .card {
-            background: white;
             border-radius: 14px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.06);
         }
 
-        /* TOOLBAR */
+        .doctor-avatar {
+            width: 38px;
+            height: 38px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: linear-gradient(
+                135deg,
+                #0ea5e9,
+                #22d3ee
+            );
+
+            font-weight: bold;
+        }
+
+        .doctor-card strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .doctor-card small {
+            color: #71879a;
+            font-size: 11px;
+        }
+
+        /* ================= STATS ================= */
+
+        .stats-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            position: relative;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(13,37,59,.95),
+                    rgba(7,25,42,.95)
+                );
+
+            border: 1px solid #153a57;
+
+            border-radius: 16px;
+
+            padding: 21px;
+
+            overflow: hidden;
+
+            transition: .25s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+
+            border-color: #1e789d;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,.2);
+        }
+
+        .stat-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 70px;
+            height: 70px;
+
+            right: -20px;
+            bottom: -25px;
+
+            border-radius: 50%;
+
+            background: rgba(34,211,238,.08);
+        }
+
+        .stat-label {
+            color: #7890a5;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #e9faff;
+        }
+
+        .stat-icon {
+            float: right;
+
+            width: 38px;
+            height: 38px;
+
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(14,165,233,.12);
+
+            color: #22d3ee;
+
+            font-size: 18px;
+        }
+
+        /* ================= TOOLBAR ================= */
 
         .toolbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+
             gap: 15px;
+
+            margin-bottom: 18px;
         }
 
-        .search {
-            width: 320px;
-            padding: 12px 15px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
+        .search-area {
+            display: flex;
+            align-items: center;
+
+            width: 420px;
+
+            background: #0a2034;
+
+            border: 1px solid #173c58;
+
+            border-radius: 11px;
+
+            padding: 0 14px;
+
+            transition: .2s;
+        }
+
+        .search-area:focus-within {
+            border-color: #22d3ee;
+
+            box-shadow:
+                0 0 0 3px rgba(34,211,238,.08);
+        }
+
+        .search-icon {
+            color: #678197;
+            margin-right: 8px;
+        }
+
+        .search-area input {
+            width: 100%;
+
+            background: transparent;
+
+            border: none;
             outline: none;
+
+            color: white;
+
+            padding: 13px 5px;
+
+            font-size: 13px;
         }
 
-        .search:focus {
-            border-color: #2563eb;
+        .search-area input::placeholder {
+            color: #5e7488;
         }
 
-        /* TABLE */
+        .toolbar-right {
+            display: flex;
+            gap: 10px;
+        }
 
-        .table-container {
+        select {
+            background: #0a2034;
+
+            color: #a9bdce;
+
+            border: 1px solid #173c58;
+
+            padding: 12px 15px;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            cursor: pointer;
+        }
+
+        .add-btn {
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0891b2,
+                    #0ea5e9
+                );
+
+            color: white;
+
+            padding: 12px 18px;
+
+            border-radius: 10px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: .25s;
+
+            box-shadow:
+                0 6px 18px rgba(14,165,233,.18);
+        }
+
+        .add-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 9px 25px rgba(14,165,233,.3);
+        }
+
+        /* ================= TABLE ================= */
+
+        .table-card {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(10,31,49,.96),
+                    rgba(7,24,40,.96)
+                );
+
+            border: 1px solid #153a57;
+
+            border-radius: 17px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,.15);
+        }
+
+        .table-header {
+            padding: 20px 22px;
+
+            border-bottom: 1px solid #14354f;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-header h2 {
+            font-size: 17px;
+            color: white;
+        }
+
+        .record-count {
+            color: #71879a;
+            font-size: 12px;
+        }
+
+        .table-wrapper {
             overflow-x: auto;
         }
 
         table {
             width: 100%;
+
             border-collapse: collapse;
-            min-width: 900px;
+
+            min-width: 850px;
         }
 
         th {
-            background: #f8fafc;
-            color: #475569;
             text-align: left;
-            padding: 15px;
-            font-size: 13px;
-            border-bottom: 1px solid #e2e8f0;
+
+            padding: 15px 20px;
+
+            color: #6f879b;
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .5px;
+
+            background: rgba(5,20,34,.6);
         }
 
         td {
-            padding: 15px;
-            border-bottom: 1px solid #e2e8f0;
-            font-size: 14px;
+            padding: 16px 20px;
+
+            border-top: 1px solid #112f47;
+
+            color: #c5d5e1;
+
+            font-size: 13px;
         }
 
-        tr:hover {
-            background: #f8fafc;
+        tbody tr {
+            transition: .2s;
         }
 
-        /* RISK */
+        tbody tr:hover {
+            background: rgba(14,165,233,.045);
+        }
+
+        .patient-name {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .patient-avatar {
+            width: 36px;
+            height: 36px;
+
+            border-radius: 10px;
+
+            background: #12344d;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #22d3ee;
+
+            font-weight: bold;
+        }
+
+        .patient-info strong {
+            display: block;
+
+            color: #e8f1f8;
+
+            font-size: 13px;
+        }
+
+        .patient-info small {
+            display: block;
+
+            color: #61788d;
+
+            font-size: 10px;
+
+            margin-top: 3px;
+        }
 
         .risk {
-            padding: 6px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
             display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: 600;
         }
 
-        .risk-high {
-            background: #fee2e2;
-            color: #b91c1c;
+        .risk.none {
+            color: #7890a5;
+
+            background: #10283b;
         }
 
-        .risk-medium {
-            background: #fef3c7;
-            color: #92400e;
+        .action-btn {
+            background: rgba(14,165,233,.09);
+
+            color: #22d3ee;
+
+            border: 1px solid #1a506d;
+
+            padding: 7px 13px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+            transition: .2s;
         }
 
-        .risk-low {
-            background: #dcfce7;
-            color: #166534;
+        .action-btn:hover {
+            background: #0e7490;
+
+            color: white;
         }
 
-        .risk-none {
-            background: #e2e8f0;
-            color: #475569;
-        }
-
-        /* EMPTY */
-
-        .empty {
-            text-align: center;
-            padding: 50px;
-            color: #64748b;
-        }
+        /* ================= LOADING ================= */
 
         .loading {
+            padding: 45px;
+
             text-align: center;
-            padding: 40px;
-            color: #64748b;
+
+            color: #71879a;
         }
 
-        /* ERROR */
+        .spinner {
+            width: 30px;
+            height: 30px;
 
-        .error {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            border: 3px solid #173a53;
+
+            border-top-color: #22d3ee;
+
+            border-radius: 50%;
+
+            animation: spin 1s linear infinite;
+
+            margin: 0 auto 12px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .empty {
+            padding: 50px;
+
+            text-align: center;
+
+            color: #71879a;
+        }
+
+        .empty-icon {
+            font-size: 30px;
+
+            margin-bottom: 10px;
+        }
+
+        /* ================= TOAST ================= */
+
+        .toast {
             display: none;
+
+            position: fixed;
+
+            right: 25px;
+            bottom: 25px;
+
+            background: #0d2d45;
+
+            border: 1px solid #1e607d;
+
+            color: #dffaff;
+
+            padding: 13px 18px;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,.3);
+
+            z-index: 2000;
+
+            font-size: 13px;
         }
 
-        /* RESPONSIVE */
+        /* ================= RESPONSIVE ================= */
 
-        @media(max-width: 900px) {
+        @media(max-width: 1100px) {
+
+            .stats-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+        @media(max-width: 800px) {
 
             .sidebar {
-                width: 190px;
+                width: 210px;
             }
 
             .main {
-                margin-left: 190px;
+                margin-left: 210px;
+                padding: 25px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+            .doctor-card {
+                display: none;
             }
 
             .toolbar {
@@ -259,9 +687,34 @@
                 align-items: stretch;
             }
 
-            .search {
+            .search-area {
                 width: 100%;
             }
+
+        }
+
+        @media(max-width: 600px) {
+
+            .sidebar {
+                position: relative;
+
+                width: 100%;
+                height: auto;
+            }
+
+            .sidebar-bottom {
+                position: static;
+                margin-top: 20px;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
         }
 
     </style>
@@ -272,537 +725,926 @@
 <body>
 
 
-    <!-- SIDEBAR -->
+<!-- ================= SIDEBAR ================= -->
 
-    <aside class="sidebar">
+<div class="sidebar">
 
-        <div class="logo">
-            SAE <span>Predict</span>
+    <div class="logo">
+
+        <div class="logo-icon">
+            🧠
         </div>
 
-        <ul class="nav">
+        <div>
+            <strong>SAE Predict</strong>
+            <small>Clinical AI System</small>
+        </div>
 
-            <li>
-                <a href="dashboard.html">
-                    Dashboard
-                </a>
-            </li>
-
-            <li>
-                <a href="patients.html" class="active">
-                    Patients
-                </a>
-            </li>
-
-            <li>
-                <a href="prediction.html">
-                    SAE Prediction
-                </a>
-            </li>
-
-            <li>
-                <a href="analytics.html">
-                    Analytics
-                </a>
-            </li>
-
-            <li>
-                <a href="reports.html">
-                    Reports
-                </a>
-            </li>
-
-            <li>
-                <a href="settings.html">
-                    Settings
-                </a>
-            </li>
-
-        </ul>
-
-    </aside>
+    </div>
 
 
-    <!-- MAIN -->
+    <nav>
 
-    <main class="main">
+        <a href="./dashboard.html">
+            <span>📊</span>
+            Dashboard
+        </a>
 
-        <div class="topbar">
+        <a href="./patients.html" class="active">
+            <span>👥</span>
+            Patients
+        </a>
+
+        <a href="./prediction.html">
+            <span>🧠</span>
+            Prediction
+        </a>
+
+        <a href="./analytics.html">
+            <span>📈</span>
+            Analytics
+        </a>
+
+        <a href="./reports.html">
+            <span>📄</span>
+            Reports
+        </a>
+
+        <a href="./settings.html">
+            <span>⚙️</span>
+            Settings
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <a href="./index.html" class="logout">
+            <span>🚪</span>
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="main">
+
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <div class="page-title">
+
+            <h1>Patient Management</h1>
+
+            <p>
+                Monitor patients and review ICU records
+            </p>
+
+        </div>
+
+
+        <div class="doctor-card">
+
+            <div class="doctor-avatar">
+                RS
+            </div>
 
             <div>
 
-                <h1>Patients</h1>
+                <strong>
+                    Dr. Rahul Sharma
+                </strong>
 
-                <p class="subtitle">
-                    Manage patient records and SAE risk information
-                </p>
+                <small>
+                    Critical Care Specialist
+                </small>
 
             </div>
 
-            <a
-                href="add-patient.html"
-                class="btn btn-primary"
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= STATS ================= -->
+
+    <div class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                👥
+            </div>
+
+            <div class="stat-label">
+                Total Patients
+            </div>
+
+            <div class="stat-value"
+                 id="totalPatients">
+                —
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🔴
+            </div>
+
+            <div class="stat-label">
+                High Risk
+            </div>
+
+            <div class="stat-value"
+                 id="highRisk">
+                —
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🟠
+            </div>
+
+            <div class="stat-label">
+                Medium Risk
+            </div>
+
+            <div class="stat-value"
+                 id="mediumRisk">
+                —
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🟢
+            </div>
+
+            <div class="stat-label">
+                Low Risk
+            </div>
+
+            <div class="stat-value"
+                 id="lowRisk">
+                —
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= TOOLBAR ================= -->
+
+    <div class="toolbar">
+
+
+        <div class="search-area">
+
+            <span class="search-icon">
+                🔍
+            </span>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by Subject ID, Admission ID, Stay ID..."
+                onkeyup="filterPatients()"
+            >
+
+        </div>
+
+
+        <div class="toolbar-right">
+
+            <select
+                id="riskFilter"
+                onchange="filterPatients()"
+            >
+
+                <option value="all">
+                    All Risk Levels
+                </option>
+
+                <option value="high">
+                    High Risk
+                </option>
+
+                <option value="medium">
+                    Medium Risk
+                </option>
+
+                <option value="low">
+                    Low Risk
+                </option>
+
+            </select>
+
+
+            <button
+                class="add-btn"
+                onclick="location.href='add-patient.html'"
             >
                 + Add Patient
-            </a>
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= TABLE ================= -->
+
+    <div class="table-card">
+
+
+        <div class="table-header">
+
+            <h2>
+                ICU Patient Records
+            </h2>
+
+            <span
+                class="record-count"
+                id="recordCount"
+            >
+                Loading...
+            </span>
 
         </div>
 
 
-        <div
-            id="errorMessage"
-            class="error"
-        ></div>
+        <div class="table-wrapper">
 
+            <table>
 
-        <div class="card">
-
-            <div class="toolbar">
-
-                <input
-                    type="text"
-                    id="searchInput"
-                    class="search"
-                    placeholder="Search patient ID or name..."
-                >
-
-                <div id="patientCount">
-                    Loading...
-                </div>
-
-            </div>
-
-
-            <div class="table-container">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Patient ID</th>
-
-                            <th>Name</th>
-
-                            <th>Age</th>
-
-                            <th>Gender</th>
-
-                            <th>Sepsis</th>
-
-                            <th>GCS</th>
-
-                            <th>Risk</th>
-
-                            <th>Actions</th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody id="patientTableBody">
-
-                        <tr>
-
-                            <td
-                                colspan="8"
-                                class="loading"
-                            >
-                                Loading patients...
-                            </td>
-
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
-    </main>
-
-
-    <script>
-
-        // Flask backend
-        const API_URL = "http://127.0.0.1:5000";
-
-        let allPatients = [];
-
-
-        // =================================================
-        // LOAD PATIENTS
-        // =================================================
-
-        async function loadPatients() {
-
-            const tableBody =
-                document.getElementById("patientTableBody");
-
-            const errorMessage =
-                document.getElementById("errorMessage");
-
-
-            try {
-
-                errorMessage.style.display = "none";
-
-
-                const response = await fetch(
-                    `${API_URL}/api/patients`
-                );
-
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        `Server returned ${response.status}`
-                    );
-
-                }
-
-
-                const data = await response.json();
-
-
-                if (data.status !== "success") {
-
-                    throw new Error(
-                        data.message || "Unable to load patients"
-                    );
-
-                }
-
-
-                allPatients = data.patients || [];
-
-
-                displayPatients(allPatients);
-
-
-            } catch (error) {
-
-                console.error(
-                    "Patient loading error:",
-                    error
-                );
-
-
-                tableBody.innerHTML = `
+                <thead>
 
                     <tr>
 
-                        <td
-                            colspan="8"
-                            class="empty"
-                        >
+                        <th>
+                            Patient
+                        </th>
 
-                            Unable to connect to backend.
+                        <th>
+                            Age
+                        </th>
 
-                            <br><br>
+                        <th>
+                            Gender
+                        </th>
 
-                            Make sure Flask is running on:
+                        <th>
+                            ICU Stay
+                        </th>
 
-                            <br>
+                        <th>
+                            SAE Risk
+                        </th>
 
-                            <strong>
-                                http://127.0.0.1:5000
-                            </strong>
+                        <th>
+                            Risk Level
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="patientTable">
+
+                    <tr>
+
+                        <td colspan="7">
+
+                            <div class="loading">
+
+                                <div class="spinner"></div>
+
+                                Loading patient records...
+
+                            </div>
 
                         </td>
 
                     </tr>
 
-                `;
+                </tbody>
 
+            </table>
 
-                errorMessage.innerHTML =
-                    "Backend connection failed. Please start Flask using <b>python app.py</b>.";
+        </div>
 
-                errorMessage.style.display = "block";
+    </div>
 
-            }
 
-        }
+</div>
 
 
-        // =================================================
-        // DISPLAY PATIENTS
-        // =================================================
 
-        function displayPatients(patients) {
+<div
+    class="toast"
+    id="toast"
+></div>
 
-            const tableBody =
-                document.getElementById(
-                    "patientTableBody"
-                );
 
-            const patientCount =
-                document.getElementById(
-                    "patientCount"
-                );
 
+<script>
 
-            patientCount.textContent =
-                `${patients.length} patient${patients.length !== 1 ? "s" : ""}`;
+const API_URL =
+    "http://127.0.0.1:5000";
 
 
-            if (patients.length === 0) {
+let allPatients = [];
 
-                tableBody.innerHTML = `
+let filteredPatients = [];
 
-                    <tr>
 
-                        <td
-                            colspan="8"
-                            class="empty"
-                        >
 
-                            No patients found.
+/* ================= LOAD PATIENTS ================= */
 
-                            <br><br>
+async function loadPatients() {
 
-                            Click
-                            <strong>+ Add Patient</strong>
-                            to add your first patient.
+    const table =
+        document.getElementById("patientTable");
 
-                        </td>
+    try {
 
-                    </tr>
-
-                `;
-
-                return;
-
-            }
-
-
-            tableBody.innerHTML = "";
-
-
-            patients.forEach(patient => {
-
-                const row =
-                    document.createElement("tr");
-
-
-                let riskClass = "risk-none";
-
-                if (patient.risk_level === "HIGH") {
-
-                    riskClass = "risk-high";
-
-                } else if (patient.risk_level === "MEDIUM") {
-
-                    riskClass = "risk-medium";
-
-                } else if (patient.risk_level === "LOW") {
-
-                    riskClass = "risk-low";
-
-                }
-
-
-                const riskText =
-                    patient.risk_level || "NOT PREDICTED";
-
-
-                row.innerHTML = `
-
-                    <td>
-                        <strong>
-                            ${patient.patient_id || "-"}
-                        </strong>
-                    </td>
-
-                    <td>
-                        ${patient.name || "-"}
-                    </td>
-
-                    <td>
-                        ${patient.age || "-"}
-                    </td>
-
-                    <td>
-                        ${patient.gender || "-"}
-                    </td>
-
-                    <td>
-                        ${patient.sepsis_status || "-"}
-                    </td>
-
-                    <td>
-                        ${patient.gcs || "-"}
-                    </td>
-
-                    <td>
-
-                        <span class="risk ${riskClass}">
-                            ${riskText}
-                        </span>
-
-                    </td>
-
-                    <td>
-
-                        <button
-                            class="btn btn-view"
-                            onclick="viewPatient(${patient.id})"
-                        >
-                            View
-                        </button>
-
-                        <button
-                            class="btn btn-danger"
-                            onclick="deletePatient(${patient.id})"
-                        >
-                            Delete
-                        </button>
-
-                    </td>
-
-                `;
-
-
-                tableBody.appendChild(row);
-
-            });
-
-        }
-
-
-        // =================================================
-        // SEARCH
-        // =================================================
-
-        document
-            .getElementById("searchInput")
-            .addEventListener(
-                "input",
-                function () {
-
-                    const search =
-                        this.value
-                            .toLowerCase()
-                            .trim();
-
-
-                    const filtered =
-                        allPatients.filter(patient => {
-
-                            const id =
-                                String(
-                                    patient.patient_id || ""
-                                ).toLowerCase();
-
-
-                            const name =
-                                String(
-                                    patient.name || ""
-                                ).toLowerCase();
-
-
-                            return (
-                                id.includes(search) ||
-                                name.includes(search)
-                            );
-
-                        });
-
-
-                    displayPatients(filtered);
-
-                }
+        const response =
+            await fetch(
+                `${API_URL}/api/patients`
             );
 
 
-        // =================================================
-        // VIEW PATIENT
-        // =================================================
+        if (!response.ok) {
 
-        function viewPatient(id) {
-
-            window.location.href =
-                `prediction.html?patient_id=${id}`;
+            throw new Error(
+                `Server returned ${response.status}`
+            );
 
         }
 
 
-        // =================================================
-        // DELETE PATIENT
-        // =================================================
-
-        async function deletePatient(id) {
-
-            const confirmed =
-                confirm(
-                    "Are you sure you want to delete this patient?"
-                );
+        const data =
+            await response.json();
 
 
-            if (!confirmed) {
-                return;
-            }
+        if (data.status !== "success") {
 
-
-            try {
-
-                const response =
-                    await fetch(
-                        `${API_URL}/api/patients/${id}`,
-                        {
-                            method: "DELETE"
-                        }
-                    );
-
-
-                const data =
-                    await response.json();
-
-
-                if (data.status === "success") {
-
-                    alert(
-                        "Patient deleted successfully."
-                    );
-
-
-                    loadPatients();
-
-                } else {
-
-                    alert(
-                        data.message ||
-                        "Unable to delete patient."
-                    );
-
-                }
-
-
-            } catch (error) {
-
-                console.error(error);
-
-                alert(
-                    "Could not connect to Flask backend."
-                );
-
-            }
+            throw new Error(
+                data.message ||
+                "Unable to load patients"
+            );
 
         }
 
 
-        // =================================================
-        // START
-        // =================================================
+        allPatients =
+            data.patients || [];
+
+
+        filteredPatients =
+            [...allPatients];
+
+
+        document.getElementById(
+            "totalPatients"
+        ).textContent =
+            Number(
+                data.total || 0
+            ).toLocaleString();
+
+
+        document.getElementById(
+            "recordCount"
+        ).textContent =
+            `${Number(data.total || 0).toLocaleString()} records`;
+
+
+        renderPatients();
+
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Patient loading error:",
+            error
+        );
+
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td colspan="7">
+
+                    <div class="empty">
+
+                        <div class="empty-icon">
+                            ⚠️
+                        </div>
+
+                        <strong>
+                            Unable to load patient records
+                        </strong>
+
+                        <p style="margin-top:8px;">
+                            ${error.message}
+                        </p>
+
+                        <p style="margin-top:8px;">
+                            Make sure Flask and MySQL are running.
+                        </p>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+
+/* ================= RENDER ================= */
+
+function renderPatients() {
+
+    const table =
+        document.getElementById(
+            "patientTable"
+        );
+
+
+    document.getElementById(
+        "recordCount"
+    ).textContent =
+        `${filteredPatients.length.toLocaleString()} shown`;
+
+
+    if (
+        filteredPatients.length === 0
+    ) {
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td colspan="7">
+
+                    <div class="empty">
+
+                        <div class="empty-icon">
+                            🔍
+                        </div>
+
+                        <strong>
+                            No patients found
+                        </strong>
+
+                        <p style="margin-top:8px;">
+                            Try changing your search.
+                        </p>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    table.innerHTML =
+        filteredPatients
+            .slice(0, 100)
+            .map(patient => {
+
+                const subjectId =
+                    patient.subject_id ?? "—";
+
+
+                const age =
+                    patient.age !== null &&
+                    patient.age !== undefined
+                    ? Number(patient.age).toFixed(0)
+                    : "—";
+
+
+                const gender =
+                    patient.gender || "Unknown";
+
+
+                const stay =
+                    patient.icu_los_hours !== null &&
+                    patient.icu_los_hours !== undefined
+                    ? Number(
+                        patient.icu_los_hours
+                    ).toFixed(1) + " hrs"
+                    : "—";
+
+
+                return `
+
+                    <tr>
+
+                        <td>
+
+                            <div class="patient-name">
+
+                                <div class="patient-avatar">
+
+                                    ${getInitials(gender)}
+
+                                </div>
+
+
+                                <div class="patient-info">
+
+                                    <strong>
+                                        Patient ${subjectId}
+                                    </strong>
+
+                                    <small>
+                                        Subject ID: ${subjectId}
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            ${age}
+                        </td>
+
+
+                        <td>
+                            ${gender}
+                        </td>
+
+
+                        <td>
+                            ${stay}
+                        </td>
+
+
+                        <td>
+
+                            <span class="risk none">
+                                Not Available
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="risk none">
+                                Not Available
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <button
+                                class="action-btn"
+                                onclick="viewPatient(${patient.id})"
+                            >
+                                View
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            })
+            .join("");
+
+}
+
+
+
+/* ================= INITIALS ================= */
+
+function getInitials(gender) {
+
+    const value =
+        String(gender).toUpperCase();
+
+
+    if (value === "M")
+        return "M";
+
+
+    if (value === "F")
+        return "F";
+
+
+    return "P";
+
+}
+
+
+
+/* ================= SEARCH ================= */
+
+function filterPatients() {
+
+    const search =
+        document.getElementById(
+            "searchInput"
+        ).value
+        .trim()
+        .toLowerCase();
+
+
+    const selectedRisk =
+        document.getElementById(
+            "riskFilter"
+        ).value;
+
+
+    filteredPatients =
+        allPatients.filter(patient => {
+
+
+            const subjectId =
+                String(
+                    patient.subject_id || ""
+                ).toLowerCase();
+
+
+            const admissionId =
+                String(
+                    patient.hadm_id || ""
+                ).toLowerCase();
+
+
+            const stayId =
+                String(
+                    patient.stay_id || ""
+                ).toLowerCase();
+
+
+            const gender =
+                String(
+                    patient.gender || ""
+                ).toLowerCase();
+
+
+            const matchesSearch =
+                subjectId.includes(search) ||
+                admissionId.includes(search) ||
+                stayId.includes(search) ||
+                gender.includes(search);
+
+
+            /*
+             * Current dataset does not contain
+             * SAE risk labels.
+             */
+
+            const matchesRisk =
+                selectedRisk === "all";
+
+
+            return (
+                matchesSearch &&
+                matchesRisk
+            );
+
+        });
+
+
+    renderPatients();
+
+}
+
+
+
+/* ================= VIEW PATIENT ================= */
+
+async function viewPatient(id) {
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/api/patients/${id}`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            data.status !== "success"
+        ) {
+
+            showToast(
+                data.message ||
+                "Patient not found"
+            );
+
+            return;
+
+        }
+
+
+        const patient =
+            data.patient;
+
+
+        alert(
+
+`PATIENT DETAILS
+
+────────────────────────
+
+Subject ID
+${patient.subject_id ?? "—"}
+
+Admission ID
+${patient.hadm_id ?? "—"}
+
+ICU Stay ID
+${patient.stay_id ?? "—"}
+
+Gender
+${patient.gender ?? "Unknown"}
+
+Age
+${patient.age ?? "—"}
+
+ICU Length of Stay
+${patient.icu_los_hours ?? "—"} hours
+
+ICU Admission
+${formatDateTime(patient.intime)}
+
+ICU Discharge
+${formatDateTime(patient.outtime)}
+
+────────────────────────
+
+SAE Risk
+Not available
+
+The current Excel dataset contains
+ICU demographic/stay information only.
+
+Clinical SAE prediction fields will be
+connected when the clinical dataset
+is integrated.`
+
+        );
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        showToast(
+            "Unable to retrieve patient details"
+        );
+
+    }
+
+}
+
+
+
+/* ================= DATE ================= */
+
+function formatDateTime(value) {
+
+    if (!value)
+        return "—";
+
+
+    try {
+
+        const date =
+            new Date(value);
+
+
+        if (
+            isNaN(
+                date.getTime()
+            )
+        )
+            return value;
+
+
+        return date.toLocaleString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
+
+    }
+
+    catch {
+
+        return value;
+
+    }
+
+}
+
+
+
+/* ================= TOAST ================= */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.style.display =
+        "block";
+
+
+    setTimeout(() => {
+
+        toast.style.display =
+            "none";
+
+    }, 3000);
+
+}
+
+
+
+/* ================= START ================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
 
         loadPatients();
 
-    </script>
+    }
+);
+
+</script>
 
 
 </body>
